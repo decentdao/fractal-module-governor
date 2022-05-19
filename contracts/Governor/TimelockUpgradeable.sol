@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.0;
 
-import "../mocks/MVD/ModuleBase.sol";
+import "fractal-contracts-package/ModuleBase.sol";
+import "fractal-contracts-package/interfaces/IDAO.sol";
 import "../interfaces/ITimelockUpgradeable.sol";
-import "../mocks/MVD/interfaces/IDAO.sol";
 
 /// @dev Contract module which acts as a timelocked controller. When set as the
 /// executor for the DAO execute action, it enforces a timelock on all

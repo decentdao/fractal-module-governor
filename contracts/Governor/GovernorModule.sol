@@ -5,7 +5,7 @@ import "@openzeppelin/contracts-upgradeable/governance/extensions/GovernorSettin
 import "@openzeppelin/contracts-upgradeable/governance/extensions/GovernorCountingSimpleUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/governance/extensions/GovernorPreventLateQuorumUpgradeable.sol";
-import "../mocks/MVD/ModuleBase.sol";
+import "fractal-contracts-package/ModuleBase.sol";
 import "../interfaces/IGovernorModule.sol";
 
 /// @dev Governor Module used to implement 1 token 1 vote.
