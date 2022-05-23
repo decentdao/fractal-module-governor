@@ -38,6 +38,7 @@ const config: HardhatUserConfig = {
     paths: [
       "fractal-contracts-package/DAOFactory.sol",
       "fractal-contracts-package/DAO.sol",
+      "fractal-contracts-package/AccessControlDAO.sol",
     ],
   },
   namedAccounts: {
