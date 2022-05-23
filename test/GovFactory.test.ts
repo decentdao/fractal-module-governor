@@ -68,6 +68,7 @@ describe("Gov Module Factory", function () {
       deployer.address,
       {
         daoImplementation: daoImpl.address,
+        daoFactory: daoFactory.address,
         accessControlImplementation: accessControlImpl.address,
         daoName: "TestDao",
         roles: ["EXECUTE_ROLE"],
@@ -79,6 +80,7 @@ describe("Gov Module Factory", function () {
     );
     createDAOTx = await daoFactory.createDAO(deployer.address, {
       daoImplementation: daoImpl.address,
+      daoFactory: daoFactory.address,
       accessControlImplementation: accessControlImpl.address,
       daoName: "TestDao",
       roles: ["EXECUTE_ROLE"],
@@ -148,6 +150,11 @@ describe("Gov Module Factory", function () {
         timelockAddress,
         deployer
       );
+    });
+
+    it("sets up moduleBase", async () => {
+      expect(await govModule.currentImpl()).to.equal(govModuleImpl.address);
+      expect(await govModule.moduleFactoryBase()).to.equal(govFactory.address);
     });
 
     it("New version can be added to the version Control", async () => {
