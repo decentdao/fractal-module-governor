@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.0;
 
-import "fractal-contracts-package/ModuleBase.sol";
-import "fractal-contracts-package/interfaces/IDAO.sol";
+import "@fractal-framework/fractal-framework/contracts/ModuleBase.sol";
+import "@fractal-framework/fractal-framework/contracts/interfaces/IDAO.sol";
 import "../interfaces/ITimelockUpgradeable.sol";
 
 /// @dev Contract module which acts as a timelocked controller. When set as the
