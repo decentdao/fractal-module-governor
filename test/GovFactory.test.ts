@@ -2,8 +2,8 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import {
   VotesTokenWithSupply,
   VotesTokenWithSupply__factory,
-  AccessControl,
-  AccessControl__factory,
+  AccessControlDAO,
+  AccessControlDAO__factory,
   TimelockUpgradeable,
   TimelockUpgradeable__factory,
   DAO,
@@ -41,7 +41,7 @@ describe("Gov Module Factory", function () {
   let govFactory: GovernorFactory;
   let createGovTx: ContractTransaction;
   let daoImpl: DAO;
-  let accessControlImpl: AccessControl;
+  let accessControlImpl: AccessControlDAO;
   let timelockImpl: TimelockUpgradeable;
   let govModuleImpl: GovernorModule;
   let governanceToken: VotesTokenWithSupply;
@@ -52,7 +52,7 @@ describe("Gov Module Factory", function () {
 
   let govModule: GovernorModule;
   let timelock: TimelockUpgradeable;
-  let accessControl: AccessControl;
+  let accessControl: AccessControlDAO;
   let dao: DAO;
 
   const abiCoder = new ethers.utils.AbiCoder();
@@ -63,7 +63,7 @@ describe("Gov Module Factory", function () {
 
     daoFactory = await new DAOFactory__factory(deployer).deploy();
     daoImpl = await new DAO__factory(deployer).deploy();
-    accessControlImpl = await new AccessControl__factory(deployer).deploy();
+    accessControlImpl = await new AccessControlDAO__factory(deployer).deploy();
     [daoAddress, accessControlAddress] = await daoFactory.callStatic.createDAO(
       deployer.address,
       {
@@ -102,12 +102,83 @@ describe("Gov Module Factory", function () {
       daoAddress
     );
     // eslint-disable-next-line camelcase
-    accessControl = AccessControl__factory.connect(
+    accessControl = AccessControlDAO__factory.connect(
       accessControlAddress,
       deployer
     );
     // eslint-disable-next-line camelcase
     dao = DAO__factory.connect(daoAddress, deployer);
+  });
+
+  describe("ModuleFactoryBase", function () {
+    beforeEach(async function () {
+      // Gov Module
+      govModuleImpl = await new GovernorModule__factory(deployer).deploy();
+      // Create a timelock contract
+      timelockImpl = await new TimelockUpgradeable__factory(deployer).deploy();
+      govFactory = await new GovernorFactory__factory(deployer).deploy();
+      await govFactory.initialize();
+
+      const govCalldata = [
+        abiCoder.encode(["address"], [daoAddress]),
+        abiCoder.encode(["address"], [accessControlAddress]),
+        abiCoder.encode(["address"], [governanceToken.address]),
+        abiCoder.encode(["address"], [govModuleImpl.address]),
+        abiCoder.encode(["address"], [timelockImpl.address]),
+        abiCoder.encode(["string"], ["TestGov"]),
+        abiCoder.encode(["uint64"], [BigNumber.from("0")]),
+        abiCoder.encode(["uint256"], [BigNumber.from("1")]),
+        abiCoder.encode(["uint256"], [BigNumber.from("5")]),
+        abiCoder.encode(["uint256"], [BigNumber.from("0")]),
+        abiCoder.encode(["uint256"], [BigNumber.from("4")]),
+        abiCoder.encode(["uint256"], [BigNumber.from("1")]),
+      ];
+
+      [governorModuleAddress, timelockAddress] =
+        await govFactory.callStatic.create(govCalldata);
+      createGovTx = await govFactory.create(govCalldata);
+      // eslint-disable-next-line camelcase
+      govModule = GovernorModule__factory.connect(
+        governorModuleAddress,
+        deployer
+      );
+
+      // eslint-disable-next-line camelcase
+      timelock = TimelockUpgradeable__factory.connect(
+        timelockAddress,
+        deployer
+      );
+    });
+
+    it("New version can be added to the version Control", async () => {
+      await expect(
+        govFactory.addVersion("1.0.0", "hash/uir", govModuleImpl.address)
+      ).to.emit(govFactory, "VersionCreated");
+    });
+
+    it("New version cannot be added by an unauthorized user", async () => {
+      await expect(
+        govFactory
+          .connect(executor1)
+          .addVersion("1.0.1", "hash/uir", govModuleImpl.address)
+      ).to.be.revertedWith("NotAuthorized()");
+    });
+
+    it("Returns current version", async () => {
+      await expect(
+        govFactory.addVersion("1.0.0", "hash/uir", govModuleImpl.address)
+      ).to.emit(govFactory, "VersionCreated");
+      const version = await govFactory.currentVersionInfo();
+      expect(version[0]).to.eq("1.0.0");
+      expect(version[1]).to.eq("hash/uir");
+      expect(version[2]).to.eq(govModuleImpl.address);
+    });
+
+    it("Gov returns correct factory", async () => {
+      await expect(await govModule.moduleFactoryBase()).to.equal(
+        govFactory.address
+      );
+    });
   });
 
   describe("Init Gov + timelock", function () {
