@@ -4,19 +4,27 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
 import "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
 
-import "fractal-contracts-package/interfaces/IModuleFactory.sol";
-import "../interfaces/ITimelockUpgradeable.sol";
 import "../interfaces/IGovernorModule.sol";
+import "fractal-contracts-package/ModuleFactoryBase.sol";
+import "../interfaces/ITimelockUpgradeable.sol";
 
 /// @dev Governor Factory used to deploy Gov Modules
 /// @dev Deploys Timelock dependecies
-contract GovernorFactory is IModuleFactory, ERC165 {
+contract GovernorFactory is ERC165, ModuleFactoryBase {
     event GovernorCreated(address timelock, address governorModule);
+
+    function initialize() external initializer {
+        __initFactoryBase();
+    }
 
     /// @dev Creates a Governor module
     /// @param data The array of bytes used to create the module
     /// @return address[] The array of addresses of the created module
-    function create(bytes[] calldata data) external returns (address[] memory) {
+    function create(bytes[] calldata data)
+        external
+        override
+        returns (address[] memory)
+    {
         address[] memory createdContracts = new address[](2);
 
         createdContracts[1] = createTimelock(data);
@@ -77,7 +85,7 @@ contract GovernorFactory is IModuleFactory, ERC165 {
         public
         view
         virtual
-        override
+        override(ERC165, ModuleFactoryBase)
         returns (bool)
     {
         return

@@ -31,7 +31,7 @@ contract TimelockUpgradeable is ModuleBase, ITimelockUpgradeable {
         address _dao,
         uint256 _minDelay
     ) external initializer {
-        __initBase(_accessControl);
+        __initBase(_accessControl, msg.sender);
         dao = IDAO(_dao);
         minDelay = _minDelay;
         emit MinDelayChange(0, minDelay);

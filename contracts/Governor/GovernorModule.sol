@@ -52,7 +52,7 @@ contract GovernorModule is
         __GovernorVotes_init(_token);
         __GovernorVotesQuorumFraction_init(_initialQuorumNumeratorValue);
         __GovTimelock_init(_timelock);
-        __initBase(_accessControl);
+        __initBase(_accessControl, msg.sender);
         __GovernorPreventLateQuorum_init(_initialVoteExtension);
     }
 
