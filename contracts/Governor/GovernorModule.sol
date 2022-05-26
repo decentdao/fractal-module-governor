@@ -5,7 +5,7 @@ import "@openzeppelin/contracts-upgradeable/governance/extensions/GovernorSettin
 import "@openzeppelin/contracts-upgradeable/governance/extensions/GovernorCountingSimpleUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/governance/extensions/GovernorPreventLateQuorumUpgradeable.sol";
-import "@fractal-framework/fractal-framework/contracts/ModuleBase.sol";
+import "@fractal-framework/core-contracts/contracts/ModuleBase.sol";
 import "../interfaces/IGovernorModule.sol";
 
 /// @dev Governor Module used to implement 1 token 1 vote.
@@ -42,7 +42,7 @@ contract GovernorModule is
         uint256 _initialQuorumNumeratorValue,
         address _accessControl
     ) external initializer {
-        __Governor_init(_name);
+        __Governor_init("GovernorModule");
         __GovernorSettings_init(
             _initialVotingDelay,
             _initialVotingPeriod,
@@ -52,7 +52,7 @@ contract GovernorModule is
         __GovernorVotes_init(_token);
         __GovernorVotesQuorumFraction_init(_initialQuorumNumeratorValue);
         __GovTimelock_init(_timelock);
-        __initBase(_accessControl, msg.sender);
+        __initBase(_accessControl, msg.sender, "Governor Module");
         __GovernorPreventLateQuorum_init(_initialVoteExtension);
     }
 
@@ -232,6 +232,12 @@ contract GovernorModule is
         returns (address)
     {
         return super._executor();
+    }
+
+    /// @notice Returns the module name
+    /// @return The module name
+    function name() public view override(ModuleBase, GovernorUpgradeable, IGovernorUpgradeable) returns (string memory) {
+      return _name;
     }
 
     /// @dev See {IERC165-supportsInterface}.
