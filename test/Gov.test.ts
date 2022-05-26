@@ -149,7 +149,7 @@ describe("Gov Module", function () {
     });
 
     it("Gov Module", async () => {
-      expect(await govModule.name()).to.eq("TestGov");
+      expect(await govModule.name()).to.eq("Governor Module");
       expect(await govModule.token()).to.eq(governanceToken.address);
       expect(await govModule.timelock()).to.eq(timelock.address);
       expect(await govModule.accessControl()).to.eq(accessControl.address);
