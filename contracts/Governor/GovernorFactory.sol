@@ -49,7 +49,7 @@ contract GovernorFactory is ERC165, ModuleFactoryBase {
                         .selector,
                     abi.decode(data[1], (address)),
                     abi.decode(data[0], (address)),
-                    abi.decode(data[11], (uint256))
+                    abi.decode(data[10], (uint256))
                 )
             )
         );
@@ -64,14 +64,13 @@ contract GovernorFactory is ERC165, ModuleFactoryBase {
                 address(abi.decode(data[3], (address))),
                 abi.encodeWithSelector(
                     IGovernorModule(payable(address(0))).initialize.selector,
-                    abi.decode(data[5], (string)),
                     abi.decode(data[2], (address)),
                     timelock,
-                    abi.decode(data[6], (uint64)),
+                    abi.decode(data[5], (uint64)),
+                    abi.decode(data[6], (uint256)),
                     abi.decode(data[7], (uint256)),
                     abi.decode(data[8], (uint256)),
                     abi.decode(data[9], (uint256)),
-                    abi.decode(data[10], (uint256)),
                     abi.decode(data[1], (address))
                 )
             )
