@@ -73,7 +73,6 @@ describe("Gov Module", function () {
     beforeEach(async function () {
       await dao.initialize(accessControl.address, deployer.address, "TestDao");
       await govModule.initialize(
-        "TestGov",
         governanceToken.address,
         timelock.address,
         BigNumber.from("0"),
@@ -193,7 +192,6 @@ describe("Gov Module", function () {
     beforeEach(async function () {
       await dao.initialize(accessControl.address, deployer.address, "TestDao");
       await govModule.initialize(
-        "TestGov",
         governanceToken.address,
         timelock.address,
         BigNumber.from("0"),
@@ -382,7 +380,6 @@ describe("Gov Module", function () {
     beforeEach(async function () {
       await dao.initialize(accessControl.address, deployer.address, "TestDao");
       await govModule.initialize(
-        "TestGov",
         governanceToken.address,
         timelock.address,
         BigNumber.from("0"),
@@ -690,7 +687,6 @@ describe("Gov Module", function () {
     beforeEach(async function () {
       await dao.initialize(accessControl.address, deployer.address, "TestDao");
       await govModule.initialize(
-        "TestGov",
         governanceToken.address,
         timelock.address,
         BigNumber.from("0"),
@@ -858,7 +854,6 @@ describe("Gov Module", function () {
     beforeEach(async function () {
       await dao.initialize(accessControl.address, deployer.address, "TestDao");
       await govModule.initialize(
-        "TestGov",
         governanceToken.address,
         timelock.address,
         BigNumber.from("5"),
@@ -1011,7 +1006,6 @@ describe("Gov Module", function () {
     beforeEach(async function () {
       await dao.initialize(accessControl.address, deployer.address, "TestDao");
       await govModule.initialize(
-        "TestGov",
         governanceToken.address,
         timelock.address,
         BigNumber.from("0"),
