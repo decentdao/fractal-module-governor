@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
 import "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
 
 import "../interfaces/IGovernorModule.sol";
-import "@fractal-framework/fractal-framework/contracts/ModuleFactoryBase.sol";
+import "@fractal-framework/core-contracts/contracts/ModuleFactoryBase.sol";
 import "../interfaces/ITimelockUpgradeable.sol";
 
 /// @dev Governor Factory used to deploy Gov Modules
