@@ -5,7 +5,7 @@ import "@openzeppelin/contracts-upgradeable/governance/extensions/GovernorSettin
 import "@openzeppelin/contracts-upgradeable/governance/extensions/GovernorCountingSimpleUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/governance/extensions/GovernorPreventLateQuorumUpgradeable.sol";
-import "@fractal-framework/fractal-framework/contracts/ModuleBase.sol";
+import "@fractal-framework/core-contracts/contracts/ModuleBase.sol";
 import "../interfaces/IGovernorModule.sol";
 
 /// @dev Governor Module used to implement 1 token 1 vote.
@@ -22,7 +22,6 @@ contract GovernorModule is
 {
     /// @dev Configures Gov Module implementation
     /// @dev Called once during deployment atomically
-    /// @param _name Name of the DAO
     /// @param _token Voting token uses snapshot feature
     /// @param _timelock Timelock vest proposals to allow detractors to exit system
     /// @param _initialVoteExtension Allow users to vote if quorum attack is preformed
@@ -32,7 +31,6 @@ contract GovernorModule is
     /// @param _initialQuorumNumeratorValue Total votes needed to reach quorum
     /// @param _accessControl Address of Access Control
     function initialize(
-        string memory _name,
         IVotesUpgradeable _token,
         ITimelockUpgradeable _timelock,
         uint64 _initialVoteExtension,
@@ -42,7 +40,7 @@ contract GovernorModule is
         uint256 _initialQuorumNumeratorValue,
         address _accessControl
     ) external initializer {
-        __Governor_init(_name);
+        __Governor_init("Governor Module");
         __GovernorSettings_init(
             _initialVotingDelay,
             _initialVotingPeriod,
@@ -52,7 +50,7 @@ contract GovernorModule is
         __GovernorVotes_init(_token);
         __GovernorVotesQuorumFraction_init(_initialQuorumNumeratorValue);
         __GovTimelock_init(_timelock);
-        __initBase(_accessControl, msg.sender);
+        __initBase(_accessControl, msg.sender, "Governor Module");
         __GovernorPreventLateQuorum_init(_initialVoteExtension);
     }
 
@@ -232,6 +230,12 @@ contract GovernorModule is
         returns (address)
     {
         return super._executor();
+    }
+
+    /// @notice Returns the module name
+    /// @return The module name
+    function name() public view override(ModuleBase, GovernorUpgradeable, IGovernorUpgradeable) returns (string memory) {
+      return _name;
     }
 
     /// @dev See {IERC165-supportsInterface}.

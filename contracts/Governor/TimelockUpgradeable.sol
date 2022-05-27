@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.0;
 
-import "@fractal-framework/fractal-framework/contracts/ModuleBase.sol";
-import "@fractal-framework/fractal-framework/contracts/interfaces/IDAO.sol";
+import "@fractal-framework/core-contracts/contracts/ModuleBase.sol";
+import "@fractal-framework/core-contracts/contracts/interfaces/IDAO.sol";
 import "../interfaces/ITimelockUpgradeable.sol";
 
 /// @dev Contract module which acts as a timelocked controller. When set as the
@@ -31,7 +31,7 @@ contract TimelockUpgradeable is ModuleBase, ITimelockUpgradeable {
         address _dao,
         uint256 _minDelay
     ) external initializer {
-        __initBase(_accessControl, msg.sender);
+        __initBase(_accessControl, msg.sender, "Timelock Module");
         dao = IDAO(_dao);
         minDelay = _minDelay;
         emit MinDelayChange(0, minDelay);

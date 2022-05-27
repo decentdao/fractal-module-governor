@@ -127,7 +127,6 @@ describe("Gov Module Factory", function () {
         abiCoder.encode(["address"], [governanceToken.address]),
         abiCoder.encode(["address"], [govModuleImpl.address]),
         abiCoder.encode(["address"], [timelockImpl.address]),
-        abiCoder.encode(["string"], ["TestGov"]),
         abiCoder.encode(["uint64"], [BigNumber.from("0")]),
         abiCoder.encode(["uint256"], [BigNumber.from("1")]),
         abiCoder.encode(["uint256"], [BigNumber.from("5")]),
@@ -153,8 +152,7 @@ describe("Gov Module Factory", function () {
     });
 
     it("sets up moduleBase", async () => {
-      expect(await govModule.currentImpl()).to.equal(govModuleImpl.address);
-      expect(await govModule.moduleFactoryBase()).to.equal(govFactory.address);
+      expect(await govModule.moduleFactory()).to.equal(govFactory.address);
     });
 
     it("New version can be added to the version Control", async () => {
@@ -175,14 +173,14 @@ describe("Gov Module Factory", function () {
       await expect(
         govFactory.addVersion("1.0.0", "hash/uir", govModuleImpl.address)
       ).to.emit(govFactory, "VersionCreated");
-      const version = await govFactory.currentVersionInfo();
+      const version = await govFactory.versionControl(0);
       expect(version[0]).to.eq("1.0.0");
       expect(version[1]).to.eq("hash/uir");
       expect(version[2]).to.eq(govModuleImpl.address);
     });
 
     it("Gov returns correct factory", async () => {
-      await expect(await govModule.moduleFactoryBase()).to.equal(
+      await expect(await govModule.moduleFactory()).to.equal(
         govFactory.address
       );
     });
@@ -202,7 +200,6 @@ describe("Gov Module Factory", function () {
         abiCoder.encode(["address"], [governanceToken.address]),
         abiCoder.encode(["address"], [govModuleImpl.address]),
         abiCoder.encode(["address"], [timelockImpl.address]),
-        abiCoder.encode(["string"], ["TestGov"]),
         abiCoder.encode(["uint64"], [BigNumber.from("0")]),
         abiCoder.encode(["uint256"], [BigNumber.from("1")]),
         abiCoder.encode(["uint256"], [BigNumber.from("5")]),
@@ -258,7 +255,7 @@ describe("Gov Module Factory", function () {
     });
 
     it("Gov Module", async () => {
-      expect(await govModule.name()).to.eq("TestGov");
+      expect(await govModule.name()).to.eq("Governor Module");
       expect(await govModule.token()).to.eq(governanceToken.address);
       expect(await govModule.timelock()).to.eq(timelock.address);
       expect(await govModule.accessControl()).to.eq(accessControlAddress);
@@ -296,7 +293,6 @@ describe("Gov Module Factory", function () {
         abiCoder.encode(["address"], [governanceToken.address]),
         abiCoder.encode(["address"], [govModuleImpl.address]),
         abiCoder.encode(["address"], [timelockImpl.address]),
-        abiCoder.encode(["string"], ["TestGov"]),
         abiCoder.encode(["uint64"], [BigNumber.from("0")]),
         abiCoder.encode(["uint256"], [BigNumber.from("1")]),
         abiCoder.encode(["uint256"], [BigNumber.from("5")]),
