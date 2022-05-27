@@ -40,7 +40,7 @@ contract GovernorModule is
         uint256 _initialQuorumNumeratorValue,
         address _accessControl
     ) external initializer {
-        __Governor_init("GovernorModule");
+        __Governor_init("Governor Module");
         __GovernorSettings_init(
             _initialVotingDelay,
             _initialVotingPeriod,
