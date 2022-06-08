@@ -8,6 +8,7 @@ import "@typechain/hardhat";
 import "hardhat-tracer";
 import "solidity-coverage";
 import "hardhat-dependency-compiler";
+import '@primitivefi/hardhat-dodoc';
 
 dotenv.config();
 
