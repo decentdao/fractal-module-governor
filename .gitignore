@@ -9,3 +9,6 @@ cache
 artifacts
 .vscode
 deployments/localhost
+docs/elin
+docs/framework
+docs/mocks
