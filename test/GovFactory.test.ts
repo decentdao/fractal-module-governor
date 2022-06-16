@@ -10,7 +10,6 @@ import {
   DAO__factory,
   GovernorModule,
   GovernorModule__factory,
-  DAOFactory,
   GovernorFactory,
   GovernorFactory__factory,
   IModuleFactory__factory,
