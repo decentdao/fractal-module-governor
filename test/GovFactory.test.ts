@@ -2,8 +2,8 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import {
   VotesTokenWithSupply,
   VotesTokenWithSupply__factory,
-  AccessControlDAO,
-  AccessControlDAO__factory,
+  DAOAccessControl,
+  DAOAccessControl__factory,
   TimelockUpgradeable,
   TimelockUpgradeable__factory,
   DAO,
@@ -45,7 +45,7 @@ describe("Gov Module Factory", function () {
 
   let govModule: GovernorModule;
   let timelock: TimelockUpgradeable;
-  let accessControl: AccessControlDAO;
+  let accessControl: DAOAccessControl;
   let dao: DAO;
 
   const abiCoder = new ethers.utils.AbiCoder();
@@ -55,7 +55,7 @@ describe("Gov Module Factory", function () {
       await ethers.getSigners();
 
     dao = await new DAO__factory(deployer).deploy();
-    accessControl = await new AccessControlDAO__factory(deployer).deploy();
+    accessControl = await new DAOAccessControl__factory(deployer).deploy();
     await dao.initialize(accessControl.address, deployer.address, "testDAO");
     await accessControl
       .connect(deployer)
