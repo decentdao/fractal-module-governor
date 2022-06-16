@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
 import "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
+import "@openzeppelin/contracts/utils/Create2.sol";
 
 import "../interfaces/IGovernorModule.sol";
 import "@fractal-framework/core-contracts/contracts/ModuleFactoryBase.sol";
@@ -28,7 +29,6 @@ contract GovernorFactory is ERC165, ModuleFactoryBase {
         address[] memory createdContracts = new address[](2);
 
         createdContracts[1] = createTimelock(data);
-
         createdContracts[0] = createGovernor(createdContracts[1], data);
 
         emit GovernorCreated(createdContracts[0], createdContracts[1]);
@@ -40,18 +40,27 @@ contract GovernorFactory is ERC165, ModuleFactoryBase {
         private
         returns (address timelock)
     {
-        timelock = address(
-            new ERC1967Proxy(
-                address(abi.decode(data[4], (address))),
-                abi.encodeWithSelector(
-                    ITimelockUpgradeable(payable(address(0)))
-                        .initialize
-                        .selector,
-                    abi.decode(data[1], (address)),
-                    abi.decode(data[0], (address)),
-                    abi.decode(data[10], (uint256))
+        // Create timelock
+        timelock = Create2.deploy(
+            0,
+            keccak256(
+                abi.encodePacked(
+                    tx.origin,
+                    block.chainid,
+                    abi.decode(data[11], (bytes32))
                 )
+            ),
+            abi.encodePacked(
+                type(ERC1967Proxy).creationCode,
+                abi.encode(address(abi.decode(data[4], (address))), "")
             )
+        );
+
+        // init timelock
+        ITimelockUpgradeable(payable(timelock)).initialize(
+            abi.decode(data[1], (address)),
+            abi.decode(data[0], (address)),
+            abi.decode(data[10], (uint256))
         );
     }
 
@@ -59,21 +68,31 @@ contract GovernorFactory is ERC165, ModuleFactoryBase {
         private
         returns (address governorModule)
     {
-        governorModule = address(
-            new ERC1967Proxy(
-                address(abi.decode(data[3], (address))),
-                abi.encodeWithSelector(
-                    IGovernorModule(payable(address(0))).initialize.selector,
-                    abi.decode(data[2], (address)),
-                    timelock,
-                    abi.decode(data[5], (uint64)),
-                    abi.decode(data[6], (uint256)),
-                    abi.decode(data[7], (uint256)),
-                    abi.decode(data[8], (uint256)),
-                    abi.decode(data[9], (uint256)),
-                    abi.decode(data[1], (address))
+        // Create governor
+        governorModule = Create2.deploy(
+            0,
+            keccak256(
+                abi.encodePacked(
+                    tx.origin,
+                    block.chainid,
+                    abi.decode(data[11], (bytes32))
                 )
+            ),
+            abi.encodePacked(
+                type(ERC1967Proxy).creationCode,
+                abi.encode(address(abi.decode(data[3], (address))), "")
             )
+        );
+        // Init Governor
+        IGovernorModule(governorModule).initialize(
+            IVotesUpgradeable(abi.decode(data[2], (address))),
+            ITimelockUpgradeable(payable(timelock)),
+            abi.decode(data[5], (uint64)),
+            abi.decode(data[6], (uint256)),
+            abi.decode(data[7], (uint256)),
+            abi.decode(data[8], (uint256)),
+            abi.decode(data[9], (uint256)),
+            abi.decode(data[1], (address))
         );
     }
 
