@@ -206,8 +206,8 @@ describe("Gov Module Factory", function () {
         ),
         ethers.utils.solidityKeccak256(
           ["bytes", "bytes"],
-          // eslint-disable-next-line camelcase
           [
+            // eslint-disable-next-line camelcase
             ERC1967Proxy__factory.bytecode,
             abiCoder.encode(["address", "bytes"], [timelockImpl.address, []]),
           ]
@@ -221,8 +221,8 @@ describe("Gov Module Factory", function () {
         ),
         ethers.utils.solidityKeccak256(
           ["bytes", "bytes"],
-          // eslint-disable-next-line camelcase
           [
+            // eslint-disable-next-line camelcase
             ERC1967Proxy__factory.bytecode,
             abiCoder.encode(["address", "bytes"], [govModuleImpl.address, []]),
           ]
