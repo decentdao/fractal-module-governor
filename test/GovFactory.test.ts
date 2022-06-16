@@ -2,19 +2,18 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import {
   VotesTokenWithSupply,
   VotesTokenWithSupply__factory,
-  AccessControlDAO,
-  AccessControlDAO__factory,
+  DAOAccessControl,
+  DAOAccessControl__factory,
   TimelockUpgradeable,
   TimelockUpgradeable__factory,
   DAO,
   DAO__factory,
   GovernorModule,
   GovernorModule__factory,
-  DAOFactory__factory,
-  DAOFactory,
   GovernorFactory,
   GovernorFactory__factory,
   IModuleFactory__factory,
+  ERC1967Proxy__factory,
 } from "../typechain-types";
 import chai from "chai";
 import { ethers, network } from "hardhat";
@@ -36,23 +35,17 @@ describe("Gov Module Factory", function () {
   let executor1: SignerWithAddress;
   let executor2: SignerWithAddress;
 
-  let daoFactory: DAOFactory;
-  let createDAOTx: ContractTransaction;
   let govFactory: GovernorFactory;
   let createGovTx: ContractTransaction;
-  let daoImpl: DAO;
-  let accessControlImpl: AccessControlDAO;
   let timelockImpl: TimelockUpgradeable;
   let govModuleImpl: GovernorModule;
   let governanceToken: VotesTokenWithSupply;
-  let daoAddress: string;
-  let accessControlAddress: string;
   let timelockAddress: string;
   let governorModuleAddress: string;
 
   let govModule: GovernorModule;
   let timelock: TimelockUpgradeable;
-  let accessControl: AccessControlDAO;
+  let accessControl: DAOAccessControl;
   let dao: DAO;
 
   const abiCoder = new ethers.utils.AbiCoder();
@@ -61,34 +54,20 @@ describe("Gov Module Factory", function () {
     [deployer, voterA, voterB, voterC, executor1, executor2] =
       await ethers.getSigners();
 
-    daoFactory = await new DAOFactory__factory(deployer).deploy();
-    daoImpl = await new DAO__factory(deployer).deploy();
-    accessControlImpl = await new AccessControlDAO__factory(deployer).deploy();
-    [daoAddress, accessControlAddress] = await daoFactory.callStatic.createDAO(
-      deployer.address,
-      {
-        daoImplementation: daoImpl.address,
-        daoFactory: daoFactory.address,
-        accessControlImplementation: accessControlImpl.address,
-        daoName: "TestDao",
-        roles: ["EXECUTE_ROLE"],
-        rolesAdmins: ["DAO_ROLE"],
-        members: [[executor1.address, executor2.address]],
-        daoFunctionDescs: ["execute(address[],uint256[],bytes[])"],
-        daoActionRoles: [["EXECUTE_ROLE"]],
-      }
-    );
-    createDAOTx = await daoFactory.createDAO(deployer.address, {
-      daoImplementation: daoImpl.address,
-      daoFactory: daoFactory.address,
-      accessControlImplementation: accessControlImpl.address,
-      daoName: "TestDao",
-      roles: ["EXECUTE_ROLE"],
-      rolesAdmins: ["DAO_ROLE"],
-      members: [[executor1.address, executor2.address]],
-      daoFunctionDescs: ["execute(address[],uint256[],bytes[])"],
-      daoActionRoles: [["EXECUTE_ROLE"]],
-    });
+    dao = await new DAO__factory(deployer).deploy();
+    accessControl = await new DAOAccessControl__factory(deployer).deploy();
+    await dao.initialize(accessControl.address, deployer.address, "testDAO");
+    await accessControl
+      .connect(deployer)
+      .initialize(
+        dao.address,
+        ["EXECUTE_ROLE"],
+        ["DAO_ROLE"],
+        [[executor1.address, executor2.address]],
+        [dao.address],
+        ["execute(address[],uint256[],bytes[])"],
+        [["EXECUTE_ROLE"]]
+      );
 
     // Create a new ERC20Votes token to bring as the DAO governance token
     governanceToken = await new VotesTokenWithSupply__factory(deployer).deploy(
@@ -101,29 +80,20 @@ describe("Gov Module Factory", function () {
         ethers.utils.parseUnits("100.0", 18),
       ],
       ethers.utils.parseUnits("1600", 18),
-      daoAddress
+      dao.address
     );
-    // eslint-disable-next-line camelcase
-    accessControl = AccessControlDAO__factory.connect(
-      accessControlAddress,
-      deployer
-    );
-    // eslint-disable-next-line camelcase
-    dao = DAO__factory.connect(daoAddress, deployer);
   });
 
   describe("ModuleFactoryBase", function () {
     beforeEach(async function () {
-      // Gov Module
       govModuleImpl = await new GovernorModule__factory(deployer).deploy();
-      // Create a timelock contract
       timelockImpl = await new TimelockUpgradeable__factory(deployer).deploy();
       govFactory = await new GovernorFactory__factory(deployer).deploy();
       await govFactory.initialize();
 
       const govCalldata = [
-        abiCoder.encode(["address"], [daoAddress]),
-        abiCoder.encode(["address"], [accessControlAddress]),
+        abiCoder.encode(["address"], [dao.address]),
+        abiCoder.encode(["address"], [accessControl.address]),
         abiCoder.encode(["address"], [governanceToken.address]),
         abiCoder.encode(["address"], [govModuleImpl.address]),
         abiCoder.encode(["address"], [timelockImpl.address]),
@@ -133,6 +103,7 @@ describe("Gov Module Factory", function () {
         abiCoder.encode(["uint256"], [BigNumber.from("0")]),
         abiCoder.encode(["uint256"], [BigNumber.from("4")]),
         abiCoder.encode(["uint256"], [BigNumber.from("1")]),
+        abiCoder.encode(["bytes32"], [ethers.utils.formatBytes32String("hi")]),
       ];
 
       [governorModuleAddress, timelockAddress] =
@@ -188,15 +159,14 @@ describe("Gov Module Factory", function () {
 
   describe("Init Gov + timelock", function () {
     beforeEach(async function () {
-      // Gov Module
       govModuleImpl = await new GovernorModule__factory(deployer).deploy();
-      // Create a timelock contract
       timelockImpl = await new TimelockUpgradeable__factory(deployer).deploy();
       govFactory = await new GovernorFactory__factory(deployer).deploy();
+      await govFactory.initialize();
 
       const govCalldata = [
-        abiCoder.encode(["address"], [daoAddress]),
-        abiCoder.encode(["address"], [accessControlAddress]),
+        abiCoder.encode(["address"], [dao.address]),
+        abiCoder.encode(["address"], [accessControl.address]),
         abiCoder.encode(["address"], [governanceToken.address]),
         abiCoder.encode(["address"], [govModuleImpl.address]),
         abiCoder.encode(["address"], [timelockImpl.address]),
@@ -206,6 +176,7 @@ describe("Gov Module Factory", function () {
         abiCoder.encode(["uint256"], [BigNumber.from("0")]),
         abiCoder.encode(["uint256"], [BigNumber.from("4")]),
         abiCoder.encode(["uint256"], [BigNumber.from("1")]),
+        abiCoder.encode(["bytes32"], [ethers.utils.formatBytes32String("hi")]),
       ];
 
       [governorModuleAddress, timelockAddress] =
@@ -224,15 +195,43 @@ describe("Gov Module Factory", function () {
       );
     });
 
-    it("emits an event with the new DAO's address", async () => {
-      expect(createDAOTx)
-        .to.emit(daoFactory, "DAOCreated")
-        .withArgs(
-          daoAddress,
-          accessControlAddress,
-          deployer.address,
-          deployer.address
-        );
+    it("Can predict Timelock and Governor", async () => {
+      const { chainId } = await ethers.provider.getNetwork();
+      const abiCoder = new ethers.utils.AbiCoder();
+      const predictedTimelock = ethers.utils.getCreate2Address(
+        govFactory.address,
+        ethers.utils.solidityKeccak256(
+          ["address", "uint256", "bytes32"],
+          [deployer.address, chainId, ethers.utils.formatBytes32String("hi")]
+        ),
+        ethers.utils.solidityKeccak256(
+          ["bytes", "bytes"],
+          [
+            // eslint-disable-next-line camelcase
+            ERC1967Proxy__factory.bytecode,
+            abiCoder.encode(["address", "bytes"], [timelockImpl.address, []]),
+          ]
+        )
+      );
+      const predictedGov = ethers.utils.getCreate2Address(
+        govFactory.address,
+        ethers.utils.solidityKeccak256(
+          ["address", "uint256", "bytes32"],
+          [deployer.address, chainId, ethers.utils.formatBytes32String("hi")]
+        ),
+        ethers.utils.solidityKeccak256(
+          ["bytes", "bytes"],
+          [
+            // eslint-disable-next-line camelcase
+            ERC1967Proxy__factory.bytecode,
+            abiCoder.encode(["address", "bytes"], [govModuleImpl.address, []]),
+          ]
+        )
+      );
+      // eslint-disable-next-line no-unused-expressions
+      expect(timelock.address).to.eq(predictedTimelock);
+      // eslint-disable-next-line no-unused-expressions
+      expect(govModule.address).to.eq(predictedGov);
     });
 
     it("emits an event with the new Gov's address", async () => {
@@ -249,8 +248,8 @@ describe("Gov Module Factory", function () {
     });
 
     it("Initiate Timelock Controller", async () => {
-      expect(await timelock.accessControl()).to.eq(accessControlAddress);
-      expect(await timelock.dao()).to.eq(daoAddress);
+      expect(await timelock.accessControl()).to.eq(accessControl.address);
+      expect(await timelock.dao()).to.eq(dao.address);
       expect(await timelock.minDelay()).to.eq(1);
     });
 
@@ -258,7 +257,7 @@ describe("Gov Module Factory", function () {
       expect(await govModule.name()).to.eq("Governor Module");
       expect(await govModule.token()).to.eq(governanceToken.address);
       expect(await govModule.timelock()).to.eq(timelock.address);
-      expect(await govModule.accessControl()).to.eq(accessControlAddress);
+      expect(await govModule.accessControl()).to.eq(accessControl.address);
       expect(await govModule.votingDelay()).to.eq(1);
       expect(await govModule.votingPeriod()).to.eq(5);
       expect(await govModule.proposalThreshold()).to.eq(0);
@@ -288,8 +287,8 @@ describe("Gov Module Factory", function () {
       govFactory = await new GovernorFactory__factory(deployer).deploy();
 
       const govCalldata = [
-        abiCoder.encode(["address"], [daoAddress]),
-        abiCoder.encode(["address"], [accessControlAddress]),
+        abiCoder.encode(["address"], [dao.address]),
+        abiCoder.encode(["address"], [accessControl.address]),
         abiCoder.encode(["address"], [governanceToken.address]),
         abiCoder.encode(["address"], [govModuleImpl.address]),
         abiCoder.encode(["address"], [timelockImpl.address]),
@@ -299,6 +298,7 @@ describe("Gov Module Factory", function () {
         abiCoder.encode(["uint256"], [BigNumber.from("0")]),
         abiCoder.encode(["uint256"], [BigNumber.from("4")]),
         abiCoder.encode(["uint256"], [BigNumber.from("1")]),
+        abiCoder.encode(["bytes32"], [ethers.utils.formatBytes32String("hi")]),
       ];
 
       [governorModuleAddress, timelockAddress] =
@@ -458,7 +458,7 @@ describe("Gov Module Factory", function () {
         ethers.utils.parseUnits("100.0", 18)
       );
 
-      expect(await governanceToken.balanceOf(daoAddress)).to.eq(
+      expect(await governanceToken.balanceOf(dao.address)).to.eq(
         ethers.utils.parseUnits("800.0", 18)
       );
 
@@ -483,7 +483,7 @@ describe("Gov Module Factory", function () {
         ethers.utils.parseUnits("100.0", 18)
       );
 
-      expect(await governanceToken.balanceOf(daoAddress)).to.eq(
+      expect(await governanceToken.balanceOf(dao.address)).to.eq(
         ethers.utils.parseUnits("700.0", 18)
       );
     });
