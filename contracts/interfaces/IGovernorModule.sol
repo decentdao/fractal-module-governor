@@ -31,17 +31,6 @@ interface IGovernorModule {
 
     // The following functions are overrides required by Solidity.
 
-    // enum ProposalState {
-    //     Pending,
-    //     Active,
-    //     Canceled,
-    //     Defeated,
-    //     Succeeded,
-    //     Queued,
-    //     Expired,
-    //     Executed
-    // }
-
     /// @notice module:user-config
     /// @dev Delay, in number of block, between the proposal is created and the vote starts. This can be increassed to
     /// leave time for users to buy voting power, of delegate it, before the voting of a proposal starts.
