@@ -1,6 +1,7 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.2;
 import "@openzeppelin/contracts-upgradeable/governance/extensions/GovernorVotesUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/governance/IGovernorUpgradeable.sol";
 import "../Governor/GovTimelockUpgradeable.sol";
 
 /// @dev Governor Module used to implement 1 token 1 vote.
@@ -30,16 +31,16 @@ interface IGovernorModule {
 
     // The following functions are overrides required by Solidity.
 
-    enum ProposalState {
-        Pending,
-        Active,
-        Canceled,
-        Defeated,
-        Succeeded,
-        Queued,
-        Expired,
-        Executed
-    }
+    // enum ProposalState {
+    //     Pending,
+    //     Active,
+    //     Canceled,
+    //     Defeated,
+    //     Succeeded,
+    //     Queued,
+    //     Expired,
+    //     Executed
+    // }
 
     /// @notice module:user-config
     /// @dev Delay, in number of block, between the proposal is created and the vote starts. This can be increassed to
@@ -72,7 +73,7 @@ interface IGovernorModule {
 
     /// @dev Overriden version of the {Governor-state} function with added support for the `Queued` status.
     /// @param proposalId keccak256 hash of proposal params
-    function state(uint256 proposalId) external view returns (ProposalState);
+    function state(uint256 proposalId) external view returns (IGovernorUpgradeable.ProposalState);
 
     /// @notice module:core
     /// @dev Block number at which votes close. Votes close at the end of this block, so it is possible to cast a vote
