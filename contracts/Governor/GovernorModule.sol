@@ -12,6 +12,7 @@ import "../interfaces/IGovernorModule.sol";
 /// This acts as an extension of the MVD and permissions are controlled by access control.
 /// @dev Gov Module is extended by the timelock contract which creates a lockup period before execution.
 contract GovernorModule is
+    IGovernorModule,
     GovernorSettingsUpgradeable,
     GovernorCountingSimpleUpgradeable,
     GovernorVotesUpgradeable,
@@ -62,7 +63,7 @@ contract GovernorModule is
     function votingDelay()
         public
         view
-        override(IGovernorUpgradeable, GovernorSettingsUpgradeable)
+        override(IGovernorUpgradeable, GovernorSettingsUpgradeable, IGovernorModule)
         returns (uint256)
     {
         return super.votingDelay();
@@ -75,7 +76,7 @@ contract GovernorModule is
     function votingPeriod()
         public
         view
-        override(IGovernorUpgradeable, GovernorSettingsUpgradeable)
+        override(IGovernorUpgradeable, GovernorSettingsUpgradeable, IGovernorModule)
         returns (uint256)
     {
         return super.votingPeriod();
@@ -89,7 +90,7 @@ contract GovernorModule is
     function quorum(uint256 blockNumber)
         public
         view
-        override(IGovernorUpgradeable, GovernorVotesQuorumFractionUpgradeable)
+        override(IGovernorUpgradeable, GovernorVotesQuorumFractionUpgradeable, IGovernorModule)
         returns (uint256)
     {
         return super.quorum(blockNumber);
@@ -104,7 +105,7 @@ contract GovernorModule is
     function getVotes(address account, uint256 blockNumber)
         public
         view
-        override(IGovernorUpgradeable, GovernorVotesUpgradeable)
+        override(IGovernorUpgradeable, GovernorVotesUpgradeable, IGovernorModule)
         returns (uint256)
     {
         return super.getVotes(account, blockNumber);
@@ -115,7 +116,7 @@ contract GovernorModule is
     function state(uint256 proposalId)
         public
         view
-        override(GovernorUpgradeable, GovTimelockUpgradeable)
+        override(GovernorUpgradeable, GovTimelockUpgradeable, IGovernorModule)
         returns (ProposalState)
     {
         return super.state(proposalId);
@@ -132,7 +133,8 @@ contract GovernorModule is
         override(
             GovernorPreventLateQuorumUpgradeable,
             GovernorUpgradeable,
-            IGovernorUpgradeable
+            IGovernorUpgradeable,
+            IGovernorModule
         )
         returns (uint256)
     {
@@ -171,7 +173,7 @@ contract GovernorModule is
         string memory description
     )
         public
-        override(GovernorUpgradeable, IGovernorUpgradeable)
+        override(GovernorUpgradeable, IGovernorUpgradeable, IGovernorModule)
         returns (uint256)
     {
         return super.propose(targets, values, calldatas, description);
@@ -181,7 +183,7 @@ contract GovernorModule is
     function proposalThreshold()
         public
         view
-        override(GovernorUpgradeable, GovernorSettingsUpgradeable)
+        override(GovernorUpgradeable, GovernorSettingsUpgradeable, IGovernorModule)
         returns (uint256)
     {
         return super.proposalThreshold();
