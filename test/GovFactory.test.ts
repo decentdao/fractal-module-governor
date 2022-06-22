@@ -317,7 +317,7 @@ describe("Gov Module Factory", function () {
       );
 
       const transferCallDataRoles = accessControl.interface.encodeFunctionData(
-        "grantRolesAndAdmins",
+        "daoGrantRolesAndAdmins",
         [
           ["GOV_ROLE", "EXECUTE_ROLE", "UPGRADE_ROLE"],
           ["DAO_ROLE", "DAO_ROLE", "DAO_ROLE"],
@@ -329,7 +329,7 @@ describe("Gov Module Factory", function () {
         .execute([accessControl.address], [0], [transferCallDataRoles]);
 
       const transferCallDataActions =
-        accessControl.interface.encodeFunctionData("addActionsRoles", [
+        accessControl.interface.encodeFunctionData("daoAddActionsRoles", [
           [
             timelock.address,
             timelock.address,
