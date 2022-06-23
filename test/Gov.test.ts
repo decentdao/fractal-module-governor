@@ -4,8 +4,8 @@ import {
   VotesTokenWithSupply__factory,
   DAOAccessControl,
   DAOAccessControl__factory,
-  TimelockUpgradeable,
-  TimelockUpgradeable__factory,
+  Timelock,
+  Timelock__factory,
   DAO,
   DAO__factory,
   GovernorModule,
@@ -35,7 +35,7 @@ describe("Gov Module", function () {
   let accessControl: DAOAccessControl;
   let dao: DAO;
   let governanceToken: VotesTokenWithSupply;
-  let timelock: TimelockUpgradeable;
+  let timelock: Timelock;
   let govModule: GovernorModule;
 
   beforeEach(async function () {
@@ -52,7 +52,7 @@ describe("Gov Module", function () {
     govModule = await new GovernorModule__factory(deployer).deploy();
 
     // Create a timelock contract
-    timelock = await new TimelockUpgradeable__factory(deployer).deploy();
+    timelock = await new Timelock__factory(deployer).deploy();
 
     // Create a new ERC20Votes token to bring as the DAO governance token
     governanceToken = await new VotesTokenWithSupply__factory(deployer).deploy(

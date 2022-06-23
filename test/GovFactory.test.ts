@@ -4,8 +4,8 @@ import {
   VotesTokenWithSupply__factory,
   DAOAccessControl,
   DAOAccessControl__factory,
-  TimelockUpgradeable,
-  TimelockUpgradeable__factory,
+  Timelock,
+  Timelock__factory,
   DAO,
   DAO__factory,
   GovernorModule,
@@ -37,14 +37,14 @@ describe("Gov Module Factory", function () {
 
   let govFactory: GovernorFactory;
   let createGovTx: ContractTransaction;
-  let timelockImpl: TimelockUpgradeable;
+  let timelockImpl: Timelock;
   let govModuleImpl: GovernorModule;
   let governanceToken: VotesTokenWithSupply;
   let timelockAddress: string;
   let governorModuleAddress: string;
 
   let govModule: GovernorModule;
-  let timelock: TimelockUpgradeable;
+  let timelock: Timelock;
   let accessControl: DAOAccessControl;
   let dao: DAO;
 
@@ -87,7 +87,7 @@ describe("Gov Module Factory", function () {
   describe("ModuleFactoryBase", function () {
     beforeEach(async function () {
       govModuleImpl = await new GovernorModule__factory(deployer).deploy();
-      timelockImpl = await new TimelockUpgradeable__factory(deployer).deploy();
+      timelockImpl = await new Timelock__factory(deployer).deploy();
       govFactory = await new GovernorFactory__factory(deployer).deploy();
       await govFactory.initialize();
 
@@ -116,10 +116,7 @@ describe("Gov Module Factory", function () {
       );
 
       // eslint-disable-next-line camelcase
-      timelock = TimelockUpgradeable__factory.connect(
-        timelockAddress,
-        deployer
-      );
+      timelock = Timelock__factory.connect(timelockAddress, deployer);
     });
 
     it("sets up moduleBase", async () => {
@@ -160,7 +157,7 @@ describe("Gov Module Factory", function () {
   describe("Init Gov + timelock", function () {
     beforeEach(async function () {
       govModuleImpl = await new GovernorModule__factory(deployer).deploy();
-      timelockImpl = await new TimelockUpgradeable__factory(deployer).deploy();
+      timelockImpl = await new Timelock__factory(deployer).deploy();
       govFactory = await new GovernorFactory__factory(deployer).deploy();
       await govFactory.initialize();
 
@@ -189,10 +186,7 @@ describe("Gov Module Factory", function () {
       );
 
       // eslint-disable-next-line camelcase
-      timelock = TimelockUpgradeable__factory.connect(
-        timelockAddress,
-        deployer
-      );
+      timelock = Timelock__factory.connect(timelockAddress, deployer);
     });
 
     it("Can predict Timelock and Governor", async () => {
@@ -283,7 +277,7 @@ describe("Gov Module Factory", function () {
       // Gov Module
       govModuleImpl = await new GovernorModule__factory(deployer).deploy();
       // Create a timelock contract
-      timelockImpl = await new TimelockUpgradeable__factory(deployer).deploy();
+      timelockImpl = await new Timelock__factory(deployer).deploy();
       govFactory = await new GovernorFactory__factory(deployer).deploy();
 
       const govCalldata = [
@@ -311,10 +305,7 @@ describe("Gov Module Factory", function () {
       );
 
       // eslint-disable-next-line camelcase
-      timelock = TimelockUpgradeable__factory.connect(
-        timelockAddress,
-        deployer
-      );
+      timelock = Timelock__factory.connect(timelockAddress, deployer);
 
       const transferCallDataRoles = accessControl.interface.encodeFunctionData(
         "daoGrantRolesAndAdmins",
@@ -708,9 +699,7 @@ describe("Gov Module Factory", function () {
     });
 
     it("Should upgrade the timelock contract", async () => {
-      const timelock2 = await new TimelockUpgradeable__factory(
-        deployer
-      ).deploy();
+      const timelock2 = await new Timelock__factory(deployer).deploy();
 
       const transferCallData = timelock.interface.encodeFunctionData(
         "upgradeTo",
