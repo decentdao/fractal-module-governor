@@ -2,7 +2,7 @@
 pragma solidity ^0.8.2;
 import "@openzeppelin/contracts-upgradeable/governance/extensions/GovernorVotesUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/governance/IGovernorUpgradeable.sol";
-import "../Governor/GovTimelockUpgradeable.sol";
+import "../Governor/GovernorTimelock.sol";
 
 /// @dev Governor Module used to implement 1 token 1 vote.
 /// This acts as an extension of the MVD and permissions are controlled by access control.
@@ -20,7 +20,7 @@ interface IGovernorModule {
     /// @param _accessControl Address of Access Control
     function initialize(
         IVotesUpgradeable _token,
-        ITimelockUpgradeable _timelock,
+        ITimelock _timelock,
         uint64 _initialVoteExtension,
         uint256 _initialVotingDelay,
         uint256 _initialVotingPeriod,

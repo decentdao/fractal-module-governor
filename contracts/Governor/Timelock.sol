@@ -5,14 +5,14 @@ pragma solidity ^0.8.0;
 
 import "@fractal-framework/core-contracts/contracts/ModuleBase.sol";
 import "@fractal-framework/core-contracts/contracts/interfaces/IDAO.sol";
-import "../interfaces/ITimelockUpgradeable.sol";
+import "../interfaces/ITimelock.sol";
 
 /// @dev Contract module which acts as a timelocked controller. When set as the
 /// executor for the DAO execute action, it enforces a timelock on all
 /// DAO executions initiated by the governor contract. This gives time for users of the
 /// controlled contract to exit before a potentially dangerous maintenance
 /// operation is applied.
-contract TimelockUpgradeable is ModuleBase, ITimelockUpgradeable {
+contract Timelock is ModuleBase, ITimelock {
     uint256 internal constant _DONE_TIMESTAMP = uint256(1);
 
     mapping(bytes32 => uint256) private _timestamps;
