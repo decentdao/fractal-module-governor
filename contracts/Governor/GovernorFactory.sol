@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/utils/Create2.sol";
 
 import "../interfaces/IGovernorModule.sol";
 import "@fractal-framework/core-contracts/contracts/ModuleFactoryBase.sol";
-import "../interfaces/ITimelockUpgradeable.sol";
+import "../interfaces/ITimelock.sol";
 
 /// @dev Governor Factory used to deploy Gov Modules
 /// @dev Deploys Timelock dependecies
@@ -57,7 +57,7 @@ contract GovernorFactory is ERC165, ModuleFactoryBase {
         );
 
         // init timelock
-        ITimelockUpgradeable(payable(timelock)).initialize(
+        ITimelock(payable(timelock)).initialize(
             abi.decode(data[1], (address)),
             abi.decode(data[0], (address)),
             abi.decode(data[10], (uint256))
@@ -86,7 +86,7 @@ contract GovernorFactory is ERC165, ModuleFactoryBase {
         // Init Governor
         IGovernorModule(governorModule).initialize(
             IVotesUpgradeable(abi.decode(data[2], (address))),
-            ITimelockUpgradeable(payable(timelock)),
+            ITimelock(payable(timelock)),
             abi.decode(data[5], (uint64)),
             abi.decode(data[6], (uint256)),
             abi.decode(data[7], (uint256)),

@@ -9,7 +9,7 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 /// delay, enforced by the {TimelockController} to all successful proposal (in addition to the voting duration). The
 /// {Governor} needs to be authorized within the Access Control Contract in order to execute transactions on the TimelockController.
 /// Using this model means the proposal will be operated by the MVD.
-abstract contract IGovTimelockUpgradeable is
+abstract contract IGovernorTimelock is
     Initializable,
     IGovernorUpgradeable
 {

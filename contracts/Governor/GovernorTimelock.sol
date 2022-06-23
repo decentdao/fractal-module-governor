@@ -5,19 +5,19 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/governance/GovernorUpgradeable.sol";
-import "../interfaces/IGovTimelockUpgradeable.sol";
-import "../interfaces/ITimelockUpgradeable.sol";
+import "../interfaces/IGovernorTimelock.sol";
+import "../interfaces/ITimelock.sol";
 
 /// @dev Extension of {Governor} that binds the execution process to an instance of {TimelockController}. This adds a
 /// delay, enforced by the {TimelockController} to all successful proposal (in addition to the voting duration). The
 /// {Governor} needs to be authorized within the Access Control Contract in order to execute transactions on the TimelockController.
 /// Using this model means the proposal will be operated by the MVD.
-abstract contract GovTimelockUpgradeable is
+abstract contract GovernorTimelock is
     Initializable,
-    IGovTimelockUpgradeable,
+    IGovernorTimelock,
     GovernorUpgradeable
 {
-    ITimelockUpgradeable private _timelock;
+    ITimelock private _timelock;
     mapping(uint256 => bytes32) private _timelockIds;
 
     /// @dev Emitted when the timelock controller used for proposal execution is modified.
@@ -25,14 +25,14 @@ abstract contract GovTimelockUpgradeable is
 
     /// @dev Set the timelock.
     /// @param timelockAddress Address of the Timelock contract.
-    function __GovTimelock_init(ITimelockUpgradeable timelockAddress)
+    function __GovernorTimelock_init(ITimelock timelockAddress)
         internal
         onlyInitializing
     {
-        __GovTimelock_init_unchained(timelockAddress);
+        __GovernorTimelock_init_unchained(timelockAddress);
     }
 
-    function __GovTimelock_init_unchained(ITimelockUpgradeable timelockAddress)
+    function __GovernorTimelock_init_unchained(ITimelock timelockAddress)
         internal
         onlyInitializing
     {
@@ -51,7 +51,7 @@ abstract contract GovTimelockUpgradeable is
         returns (bool)
     {
         return
-            interfaceId == type(IGovTimelockUpgradeable).interfaceId ||
+            interfaceId == type(IGovernorTimelock).interfaceId ||
             super.supportsInterface(interfaceId);
     }
 
@@ -203,7 +203,7 @@ abstract contract GovTimelockUpgradeable is
     /// must be proposed, scheduled, and executed through governance proposals.
     /// CAUTION: It is not recommended to change the timelock while there are other queued governance proposals.
     /// @param newTimelock Address of new Timelock Address
-    function updateTimelock(ITimelockUpgradeable newTimelock)
+    function updateTimelock(ITimelock newTimelock)
         external
         virtual
         onlyGovernance
@@ -211,7 +211,7 @@ abstract contract GovTimelockUpgradeable is
         _updateTimelock(newTimelock);
     }
 
-    function _updateTimelock(ITimelockUpgradeable newTimelock) private {
+    function _updateTimelock(ITimelock newTimelock) private {
         emit TimelockChange(address(_timelock), address(newTimelock));
         _timelock = newTimelock;
     }

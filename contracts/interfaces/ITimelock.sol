@@ -1,7 +1,7 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-interface ITimelockUpgradeable {
+interface ITimelock {
     /// @dev Emitted when a call is scheduled as part of operation `id`.
     event CallScheduled(
         bytes32 indexed id,

@@ -17,7 +17,7 @@ contract GovernorModule is
     GovernorCountingSimpleUpgradeable,
     GovernorVotesUpgradeable,
     GovernorVotesQuorumFractionUpgradeable,
-    GovTimelockUpgradeable,
+    GovernorTimelock,
     ModuleBase,
     GovernorPreventLateQuorumUpgradeable
 {
@@ -33,7 +33,7 @@ contract GovernorModule is
     /// @param _accessControl Address of Access Control
     function initialize(
         IVotesUpgradeable _token,
-        ITimelockUpgradeable _timelock,
+        ITimelock _timelock,
         uint64 _initialVoteExtension,
         uint256 _initialVotingDelay,
         uint256 _initialVotingPeriod,
@@ -50,7 +50,7 @@ contract GovernorModule is
         __GovernorCountingSimple_init();
         __GovernorVotes_init(_token);
         __GovernorVotesQuorumFraction_init(_initialQuorumNumeratorValue);
-        __GovTimelock_init(_timelock);
+        __GovernorTimelock_init(_timelock);
         __initBase(_accessControl, msg.sender, "Governor Module");
         __GovernorPreventLateQuorum_init(_initialVoteExtension);
     }
@@ -116,7 +116,7 @@ contract GovernorModule is
     function state(uint256 proposalId)
         public
         view
-        override(GovernorUpgradeable, GovTimelockUpgradeable, IGovernorModule)
+        override(GovernorUpgradeable, GovernorTimelock, IGovernorModule)
         returns (ProposalState)
     {
         return super.state(proposalId);
@@ -201,7 +201,7 @@ contract GovernorModule is
         uint256[] memory values,
         bytes[] memory calldatas,
         bytes32 descriptionHash
-    ) internal override(GovernorUpgradeable, GovTimelockUpgradeable) {
+    ) internal override(GovernorUpgradeable, GovernorTimelock) {
         super._execute(proposalId, targets, values, calldatas, descriptionHash);
     }
 
@@ -218,7 +218,7 @@ contract GovernorModule is
         bytes32 descriptionHash
     )
         internal
-        override(GovernorUpgradeable, GovTimelockUpgradeable)
+        override(GovernorUpgradeable, GovernorTimelock)
         returns (uint256)
     {
         return super._cancel(targets, values, calldatas, descriptionHash);
@@ -228,7 +228,7 @@ contract GovernorModule is
     function _executor()
         internal
         view
-        override(GovernorUpgradeable, GovTimelockUpgradeable)
+        override(GovernorUpgradeable, GovernorTimelock)
         returns (address)
     {
         return super._executor();
@@ -246,7 +246,7 @@ contract GovernorModule is
     function supportsInterface(bytes4 interfaceId)
         public
         view
-        override(GovernorUpgradeable, GovTimelockUpgradeable, ModuleBase)
+        override(GovernorUpgradeable, GovernorTimelock, ModuleBase)
         returns (bool)
     {
         return interfaceId == type(IGovernorModule).interfaceId ||
