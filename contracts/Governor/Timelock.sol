@@ -34,6 +34,7 @@ contract Timelock is ModuleBase, ITimelock {
         __initBase(_accessControl, msg.sender, "Timelock Module");
         dao = IDAO(_dao);
         minDelay = _minDelay;
+        _registerInterface(type(ITimelock).interfaceId);
         emit MinDelayChange(0, minDelay);
     }
 
