@@ -39,22 +39,6 @@ abstract contract GovernorTimelock is
         _updateTimelock(timelockAddress);
     }
 
-
-    /// @dev See {IERC165-supportsInterface}.
-    /// @param interfaceId An interface ID bytes4 as defined by ERC-165
-    /// @return bool Indicates whether the interface is supported
-    function supportsInterface(bytes4 interfaceId)
-        public
-        view
-        virtual
-        override(IERC165Upgradeable, GovernorUpgradeable)
-        returns (bool)
-    {
-        return
-            interfaceId == type(IGovernorTimelock).interfaceId ||
-            super.supportsInterface(interfaceId);
-    }
-
     /// @dev Overriden version of the {Governor-state} function with added support for the `Queued` status.
     /// @param proposalId keccak256 hash of proposal params
     function state(uint256 proposalId)
