@@ -14,6 +14,7 @@ import {
   IGovernorModule__factory,
   IModuleBase__factory,
   IERC165__factory,
+  IGovernorTimelock__factory,
 } from "../typechain-types";
 import chai from "chai";
 import { ethers, network } from "hardhat";
@@ -178,12 +179,20 @@ describe("Gov Module", function () {
       );
     });
 
-    it("Supports the expected ERC165 interface", async () => {
+    it.only("Supports the expected ERC165 interface", async () => {
       // Supports Governor Module interface
       expect(
         await govModule.supportsInterface(
           // eslint-disable-next-line camelcase
           getInterfaceSelector(IGovernorModule__factory.createInterface())
+        )
+      ).to.eq(true);
+
+      // Supports Governor Timelock interface
+      expect(
+        await govModule.supportsInterface(
+          // eslint-disable-next-line camelcase
+          getInterfaceSelector(IGovernorTimelock__factory.createInterface())
         )
       ).to.eq(true);
 
