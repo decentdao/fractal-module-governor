@@ -14,6 +14,7 @@ import {
   GovernorFactory__factory,
   IModuleFactoryBase__factory,
   ERC1967Proxy__factory,
+  IERC165__factory,
 } from "../typechain-types";
 import chai from "chai";
 import { ethers, network } from "hardhat";
@@ -267,8 +268,14 @@ describe("Gov Module Factory", function () {
           getInterfaceSelector(IModuleFactoryBase__factory.createInterface())
         )
       ).to.eq(true);
+
       // Supports ERC-165 interface
-      expect(await govFactory.supportsInterface("0x01ffc9a7")).to.eq(true);
+      expect(
+        await dao.supportsInterface(
+          // eslint-disable-next-line camelcase
+          getInterfaceSelector(IERC165__factory.createInterface())
+        )
+      ).to.eq(true);
     });
   });
 
