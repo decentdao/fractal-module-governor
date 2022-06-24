@@ -179,7 +179,7 @@ describe("Gov Module", function () {
       );
     });
 
-    it.only("Supports the expected ERC165 interface", async () => {
+    it("Supports the expected ERC165 interface", async () => {
       // Supports Governor Module interface
       expect(
         await govModule.supportsInterface(
