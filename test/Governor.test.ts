@@ -6,11 +6,14 @@ import {
   DAOAccessControl__factory,
   Timelock,
   Timelock__factory,
+  ITimelock__factory,
   DAO,
   DAO__factory,
   GovernorModule,
   GovernorModule__factory,
   IGovernorModule__factory,
+  IModuleBase__factory,
+  IERC165__factory,
 } from "../typechain-types";
 import chai from "chai";
 import { ethers, network } from "hardhat";
@@ -176,15 +179,53 @@ describe("Gov Module", function () {
     });
 
     it("Supports the expected ERC165 interface", async () => {
-      // Supports DAO Factory interface
+      // Supports Governor Module interface
       expect(
         await govModule.supportsInterface(
           // eslint-disable-next-line camelcase
           getInterfaceSelector(IGovernorModule__factory.createInterface())
         )
       ).to.eq(true);
+
+      // Supports ModuleBase interface
+      expect(
+        await govModule.supportsInterface(
+          // eslint-disable-next-line camelcase
+          getInterfaceSelector(IModuleBase__factory.createInterface())
+        )
+      ).to.eq(true);
+
       // Supports ERC-165 interface
-      expect(await govModule.supportsInterface("0x01ffc9a7")).to.eq(true);
+      expect(
+        await govModule.supportsInterface(
+          // eslint-disable-next-line camelcase
+          getInterfaceSelector(IERC165__factory.createInterface())
+        )
+      ).to.eq(true);
+
+      // Supports Timelock interface
+      expect(
+        await timelock.supportsInterface(
+          // eslint-disable-next-line camelcase
+          getInterfaceSelector(ITimelock__factory.createInterface())
+        )
+      ).to.eq(true);
+
+      // Supports ModuleBase interface
+      expect(
+        await timelock.supportsInterface(
+          // eslint-disable-next-line camelcase
+          getInterfaceSelector(IModuleBase__factory.createInterface())
+        )
+      ).to.eq(true);
+
+      // Supports ERC-165 interface
+      expect(
+        await dao.supportsInterface(
+          // eslint-disable-next-line camelcase
+          getInterfaceSelector(IERC165__factory.createInterface())
+        )
+      ).to.eq(true);
     });
   });
 

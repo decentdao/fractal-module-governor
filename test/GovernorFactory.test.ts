@@ -12,7 +12,7 @@ import {
   GovernorModule__factory,
   GovernorFactory,
   GovernorFactory__factory,
-  IModuleFactory__factory,
+  IModuleFactoryBase__factory,
   ERC1967Proxy__factory,
 } from "../typechain-types";
 import chai from "chai";
@@ -134,7 +134,7 @@ describe("Gov Module Factory", function () {
         govFactory
           .connect(executor1)
           .addVersion("1.0.1", "hash/uir", govModuleImpl.address)
-      ).to.be.revertedWith("NotAuthorized()");
+      ).to.be.revertedWith("Ownable: caller is not the owner");
     });
 
     it("Returns current version", async () => {
@@ -264,7 +264,7 @@ describe("Gov Module Factory", function () {
       expect(
         await govFactory.supportsInterface(
           // eslint-disable-next-line camelcase
-          getInterfaceSelector(IModuleFactory__factory.createInterface())
+          getInterfaceSelector(IModuleFactoryBase__factory.createInterface())
         )
       ).to.eq(true);
       // Supports ERC-165 interface
