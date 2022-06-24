@@ -53,6 +53,7 @@ contract GovernorModule is
         __GovernorTimelock_init(_timelock);
         __initBase(_accessControl, msg.sender, "Governor Module");
         __GovernorPreventLateQuorum_init(_initialVoteExtension);
+        _registerInterface(type(IGovernorModule).interfaceId);
     }
 
     // The following functions are overrides required by Solidity.
@@ -246,7 +247,7 @@ contract GovernorModule is
     function supportsInterface(bytes4 interfaceId)
         public
         view
-        override(GovernorUpgradeable, GovernorTimelock, ModuleBase)
+        override(GovernorUpgradeable, ERC165Storage, IERC165Upgradeable)
         returns (bool)
     {
         return interfaceId == type(IGovernorModule).interfaceId ||
