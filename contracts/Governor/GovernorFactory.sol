@@ -1,7 +1,6 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
 import "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
 import "@openzeppelin/contracts/utils/Create2.sol";
 
@@ -11,7 +10,7 @@ import "../interfaces/ITimelock.sol";
 
 /// @dev Governor Factory used to deploy Gov Modules
 /// @dev Deploys Timelock dependecies
-contract GovernorFactory is ERC165, ModuleFactoryBase {
+contract GovernorFactory is ModuleFactoryBase {
     event GovernorCreated(address timelock, address governorModule);
 
     function initialize() external initializer {
@@ -94,20 +93,5 @@ contract GovernorFactory is ERC165, ModuleFactoryBase {
             abi.decode(data[9], (uint256)),
             abi.decode(data[1], (address))
         );
-    }
-
-    /// @notice Returns whether a given interface ID is supported
-    /// @param interfaceId An interface ID bytes4 as defined by ERC-165
-    /// @return bool Indicates whether the interface is supported
-    function supportsInterface(bytes4 interfaceId)
-        public
-        view
-        virtual
-        override(ERC165, ModuleFactoryBase)
-        returns (bool)
-    {
-        return
-            interfaceId == type(IModuleFactory).interfaceId ||
-            super.supportsInterface(interfaceId);
     }
 }

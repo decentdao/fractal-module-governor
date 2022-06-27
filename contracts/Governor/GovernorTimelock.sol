@@ -20,9 +20,6 @@ abstract contract GovernorTimelock is
     ITimelock private _timelock;
     mapping(uint256 => bytes32) private _timelockIds;
 
-    /// @dev Emitted when the timelock controller used for proposal execution is modified.
-    event TimelockChange(address oldTimelock, address newTimelock);
-
     /// @dev Set the timelock.
     /// @param timelockAddress Address of the Timelock contract.
     function __GovernorTimelock_init(ITimelock timelockAddress)
@@ -37,68 +34,6 @@ abstract contract GovernorTimelock is
         onlyInitializing
     {
         _updateTimelock(timelockAddress);
-    }
-
-
-    /// @dev See {IERC165-supportsInterface}.
-    /// @param interfaceId An interface ID bytes4 as defined by ERC-165
-    /// @return bool Indicates whether the interface is supported
-    function supportsInterface(bytes4 interfaceId)
-        public
-        view
-        virtual
-        override(IERC165Upgradeable, GovernorUpgradeable)
-        returns (bool)
-    {
-        return
-            interfaceId == type(IGovernorTimelock).interfaceId ||
-            super.supportsInterface(interfaceId);
-    }
-
-    /// @dev Overriden version of the {Governor-state} function with added support for the `Queued` status.
-    /// @param proposalId keccak256 hash of proposal params
-    function state(uint256 proposalId)
-        public
-        view
-        virtual
-        override(IGovernorUpgradeable, GovernorUpgradeable)
-        returns (ProposalState)
-    {
-        ProposalState status = super.state(proposalId);
-
-        if (status != ProposalState.Succeeded) {
-            return status;
-        }
-
-        // core tracks execution, so we just have to check if successful proposal have been queued.
-        bytes32 queueid = _timelockIds[proposalId];
-        if (queueid == bytes32(0)) {
-            return status;
-        } else if (_timelock.isOperationDone(queueid)) {
-            return ProposalState.Executed;
-        } else if (_timelock.isOperationPending(queueid)) {
-            return ProposalState.Queued;
-        } else {
-            return ProposalState.Canceled;
-        }
-    }
-
-    /// @dev Public accessor to check the address of the timelock
-    function timelock() public view virtual override returns (address) {
-        return address(_timelock);
-    }
-
-    /// @dev Public accessor to check the eta of a queued proposal
-    /// @param proposalId keccak256 hash of proposal params
-    function proposalEta(uint256 proposalId)
-        public
-        view
-        virtual
-        override
-        returns (uint256)
-    {
-        uint256 eta = _timelock.getTimestamp(_timelockIds[proposalId]);
-        return eta == 1 ? 0 : eta; // _DONE_TIMESTAMP (1) should be replaced with a 0 value
     }
 
     /// @dev Function to queue a proposal to the timelock.
@@ -145,6 +80,54 @@ abstract contract GovernorTimelock is
 
         return proposalId;
     }
+
+    /// @dev Overriden version of the {Governor-state} function with added support for the `Queued` status.
+    /// @param proposalId keccak256 hash of proposal params
+    function state(uint256 proposalId)
+        public
+        view
+        virtual
+        override(IGovernorTimelock, GovernorUpgradeable)
+        returns (ProposalState)
+    {
+        ProposalState status = super.state(proposalId);
+
+        if (status != ProposalState.Succeeded) {
+            return status;
+        }
+
+        // core tracks execution, so we just have to check if successful proposal have been queued.
+        bytes32 queueid = _timelockIds[proposalId];
+        if (queueid == bytes32(0)) {
+            return status;
+        } else if (_timelock.isOperationDone(queueid)) {
+            return ProposalState.Executed;
+        } else if (_timelock.isOperationPending(queueid)) {
+            return ProposalState.Queued;
+        } else {
+            return ProposalState.Canceled;
+        }
+    }
+
+    /// @dev Public accessor to check the address of the timelock
+    function timelock() public view virtual override returns (address) {
+        return address(_timelock);
+    }
+
+    /// @dev Public accessor to check the eta of a queued proposal
+    /// @param proposalId keccak256 hash of proposal params
+    function proposalEta(uint256 proposalId)
+        public
+        view
+        virtual
+        override
+        returns (uint256)
+    {
+        uint256 eta = _timelock.getTimestamp(_timelockIds[proposalId]);
+        return eta == 1 ? 0 : eta; // _DONE_TIMESTAMP (1) should be replaced with a 0 value
+    }
+
+
 
     /// @dev Overriden execute function that run the already queued proposal through the timelock.
     /// @param targets Contract addresses the DAO will call
