@@ -1,0 +1,886 @@
+{
+  "address": "0xEF3FaA25A05831772dfA80Af0c34B4491D1E27cf",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "NotAuthorized",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "previousAdmin",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "newAdmin",
+          "type": "address"
+        }
+      ],
+      "name": "AdminChanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "beacon",
+          "type": "address"
+        }
+      ],
+      "name": "BeaconUpgraded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "index",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "target",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "value",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "CallExecuted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "index",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "target",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "value",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "predecessor",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "delay",
+          "type": "uint256"
+        }
+      ],
+      "name": "CallScheduled",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        }
+      ],
+      "name": "Cancelled",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "oldDuration",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "newDuration",
+          "type": "uint256"
+        }
+      ],
+      "name": "MinDelayChange",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "implementation",
+          "type": "address"
+        }
+      ],
+      "name": "Upgraded",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "accessControl",
+      "outputs": [
+        {
+          "internalType": "contract IDAOAccessControl",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        }
+      ],
+      "name": "cancel",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "dao",
+      "outputs": [
+        {
+          "internalType": "contract IDAO",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "targets",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "values",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "bytes[]",
+          "name": "datas",
+          "type": "bytes[]"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "predecessor",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "salt",
+          "type": "bytes32"
+        }
+      ],
+      "name": "executeBatch",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getMinDelay",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "duration",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getTimestamp",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "targets",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "values",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "bytes[]",
+          "name": "datas",
+          "type": "bytes[]"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "predecessor",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "salt",
+          "type": "bytes32"
+        }
+      ],
+      "name": "hashOperationBatch",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "hash",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_accessControl",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_dao",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_minDelay",
+          "type": "uint256"
+        }
+      ],
+      "name": "initialize",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        }
+      ],
+      "name": "isOperation",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "pending",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        }
+      ],
+      "name": "isOperationDone",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "done",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        }
+      ],
+      "name": "isOperationPending",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "pending",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        }
+      ],
+      "name": "isOperationReady",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "ready",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "minDelay",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "moduleFactory",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "name",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "proxiableUUID",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "targets",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "values",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "bytes[]",
+          "name": "datas",
+          "type": "bytes[]"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "predecessor",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "salt",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint256",
+          "name": "delay",
+          "type": "uint256"
+        }
+      ],
+      "name": "scheduleBatch",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes4",
+          "name": "interfaceId",
+          "type": "bytes4"
+        }
+      ],
+      "name": "supportsInterface",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "newDelay",
+          "type": "uint256"
+        }
+      ],
+      "name": "updateDelay",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newImplementation",
+          "type": "address"
+        }
+      ],
+      "name": "upgradeTo",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newImplementation",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "upgradeToAndCall",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "stateMutability": "payable",
+      "type": "receive"
+    }
+  ],
+  "transactionHash": "0x1de0be2cd6cb4b35961fdba29685a39a49cdc4a5c9e2c25a2e7eb9264beff437",
+  "receipt": {
+    "to": null,
+    "from": "0x19fbC5a2E4B44E5e1E532fC628b73248518A9207",
+    "contractAddress": "0xEF3FaA25A05831772dfA80Af0c34B4491D1E27cf",
+    "transactionIndex": 5,
+    "gasUsed": "1805627",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0xc6aa1819a79060a497d2228e11e4571518b3f4ecc97d99d4258224616cc9c1ff",
+    "transactionHash": "0x1de0be2cd6cb4b35961fdba29685a39a49cdc4a5c9e2c25a2e7eb9264beff437",
+    "logs": [],
+    "blockNumber": 1397598,
+    "cumulativeGasUsed": "2044896",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "7cd7ec1e75a61af22603b823b2e40647",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.13+commit.abaa5c0e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"NotAuthorized\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"previousAdmin\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newAdmin\",\"type\":\"address\"}],\"name\":\"AdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beacon\",\"type\":\"address\"}],\"name\":\"BeaconUpgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"id\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"target\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"CallExecuted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"id\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"target\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"predecessor\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"delay\",\"type\":\"uint256\"}],\"name\":\"CallScheduled\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"id\",\"type\":\"bytes32\"}],\"name\":\"Cancelled\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"oldDuration\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newDuration\",\"type\":\"uint256\"}],\"name\":\"MinDelayChange\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"implementation\",\"type\":\"address\"}],\"name\":\"Upgraded\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"accessControl\",\"outputs\":[{\"internalType\":\"contract IDAOAccessControl\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"id\",\"type\":\"bytes32\"}],\"name\":\"cancel\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"dao\",\"outputs\":[{\"internalType\":\"contract IDAO\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"targets\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"values\",\"type\":\"uint256[]\"},{\"internalType\":\"bytes[]\",\"name\":\"datas\",\"type\":\"bytes[]\"},{\"internalType\":\"bytes32\",\"name\":\"predecessor\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"salt\",\"type\":\"bytes32\"}],\"name\":\"executeBatch\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getMinDelay\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"duration\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"id\",\"type\":\"bytes32\"}],\"name\":\"getTimestamp\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"targets\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"values\",\"type\":\"uint256[]\"},{\"internalType\":\"bytes[]\",\"name\":\"datas\",\"type\":\"bytes[]\"},{\"internalType\":\"bytes32\",\"name\":\"predecessor\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"salt\",\"type\":\"bytes32\"}],\"name\":\"hashOperationBatch\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"hash\",\"type\":\"bytes32\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_accessControl\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_dao\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_minDelay\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"id\",\"type\":\"bytes32\"}],\"name\":\"isOperation\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"pending\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"id\",\"type\":\"bytes32\"}],\"name\":\"isOperationDone\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"done\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"id\",\"type\":\"bytes32\"}],\"name\":\"isOperationPending\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"pending\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"id\",\"type\":\"bytes32\"}],\"name\":\"isOperationReady\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"ready\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"minDelay\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"moduleFactory\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"proxiableUUID\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"targets\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"values\",\"type\":\"uint256[]\"},{\"internalType\":\"bytes[]\",\"name\":\"datas\",\"type\":\"bytes[]\"},{\"internalType\":\"bytes32\",\"name\":\"predecessor\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"salt\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"delay\",\"type\":\"uint256\"}],\"name\":\"scheduleBatch\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"newDelay\",\"type\":\"uint256\"}],\"name\":\"updateDelay\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"}],\"name\":\"upgradeTo\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"upgradeToAndCall\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"stateMutability\":\"payable\",\"type\":\"receive\"}],\"devdoc\":{\"details\":\"Contract module which acts as a timelocked controller. When set as the executor for the DAO execute action, it enforces a timelock on all DAO executions initiated by the governor contract. This gives time for users of the controlled contract to exit before a potentially dangerous maintenance operation is applied.\",\"kind\":\"dev\",\"methods\":{\"cancel(bytes32)\":{\"details\":\"Cancel an operation. - the caller must be authorized.\",\"params\":{\"id\":\"keccak256 hash of proposal params\"}},\"executeBatch(address[],uint256[],bytes[],bytes32,bytes32)\":{\"details\":\"Execute an (ready) operation containing a batch of transactions. Emits one {CallExecuted} event per transaction in the batch. - the caller must be authorized\",\"params\":{\"datas\":\"Function Sigs w/ Params \",\"predecessor\":\"GovTimelock passes this as 0\",\"salt\":\"Description Hash\",\"targets\":\"Contract addresses the DAO will call\",\"values\":\"Ether values to be sent to the target address\"}},\"getMinDelay()\":{\"details\":\"Returns the minimum delay for an operation to become valid. This value can be changed by executing an operation that calls `updateDelay`.\"},\"getTimestamp(bytes32)\":{\"details\":\"Returns the timestamp at with an operation becomes ready (0 for unset operations, 1 for done operations).\",\"params\":{\"id\":\"keccak256 hash of proposal params\"}},\"hashOperationBatch(address[],uint256[],bytes[],bytes32,bytes32)\":{\"details\":\"Returns the identifier of an operation containing a batch of transactions.\",\"params\":{\"datas\":\"Function Sigs w/ Params \",\"predecessor\":\"GovTimelock passes this as 0\",\"salt\":\"Description Hash\",\"targets\":\"Contract addresses the DAO will call\",\"values\":\"Ether values to be sent to the target address\"}},\"initialize(address,address,uint256)\":{\"params\":{\"_accessControl\":\"The address of the access control contract\",\"_dao\":\"The address of the dao contract\",\"_minDelay\":\"init the contract with a given `minDelay`.\"}},\"isOperation(bytes32)\":{\"details\":\"Returns whether an id correspond to a registered operation. This includes both Pending, Ready and Done operations.\",\"params\":{\"id\":\"keccak256 hash of proposal params\"}},\"isOperationDone(bytes32)\":{\"details\":\"Returns whether an operation is done or not.\",\"params\":{\"id\":\"keccak256 hash of proposal params\"}},\"isOperationPending(bytes32)\":{\"details\":\"Returns whether an operation is pending or not.\",\"params\":{\"id\":\"keccak256 hash of proposal params\"}},\"isOperationReady(bytes32)\":{\"details\":\"Returns whether an operation is ready or not.\",\"params\":{\"id\":\"keccak256 hash of proposal params\"}},\"name()\":{\"returns\":{\"_0\":\"The module name\"}},\"proxiableUUID()\":{\"details\":\"Implementation of the ERC1822 {proxiableUUID} function. This returns the storage slot used by the implementation. It is used to validate that the this implementation remains valid after an upgrade. IMPORTANT: A proxy pointing at a proxiable contract should not be considered proxiable itself, because this risks bricking a proxy that upgrades to it, by delegating to itself until out of gas. Thus it is critical that this function revert if invoked through a proxy. This is guaranteed by the `notDelegated` modifier.\"},\"scheduleBatch(address[],uint256[],bytes[],bytes32,bytes32,uint256)\":{\"details\":\"Schedule an operation containing a batch of transactions. Emits one {CallScheduled} event per transaction in the batch. - the caller must be authorized.\",\"params\":{\"datas\":\"Function Sigs w/ Params \",\"delay\":\"current delay set in contract\",\"predecessor\":\"GovTimelock passes this as 0\",\"salt\":\"Description Hash\",\"targets\":\"Contract addresses the DAO will call\",\"values\":\"Ether values to be sent to the target address\"}},\"supportsInterface(bytes4)\":{\"details\":\"See {IERC165-supportsInterface}.\"},\"updateDelay(uint256)\":{\"details\":\"Changes the minimum timelock duration for future operations. Emits a {MinDelayChange} event. Requirements: - the caller must be authorized.\",\"params\":{\"newDelay\":\"Update the delay between queue and execute\"}},\"upgradeTo(address)\":{\"details\":\"Upgrade the implementation of the proxy to `newImplementation`. Calls {_authorizeUpgrade}. Emits an {Upgraded} event.\"},\"upgradeToAndCall(address,bytes)\":{\"details\":\"Upgrade the implementation of the proxy to `newImplementation`, and subsequently execute the function call encoded in `data`. Calls {_authorizeUpgrade}. Emits an {Upgraded} event.\"}},\"stateVariables\":{\"__gap\":{\"details\":\"This empty reserved space is put in place to allow future versions to add new variables without shifting down storage in the inheritance chain. See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"initialize(address,address,uint256)\":{\"notice\":\"Function for initializing the contract that can only be called once\"},\"name()\":{\"notice\":\"Returns the module name\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/Governor/Timelock.sol\":\"Timelock\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@fractal-framework/core-contracts/contracts/ModuleBase.sol\":{\"content\":\"//SPDX-License-Identifier: Unlicense\\r\\npragma solidity ^0.8.0;\\r\\n\\r\\nimport \\\"@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol\\\";\\r\\nimport \\\"@openzeppelin/contracts/utils/introspection/ERC165Storage.sol\\\";\\r\\nimport \\\"./interfaces/IModuleBase.sol\\\";\\r\\n\\r\\n/// @notice An abstract contract to be inherited by module contracts\\r\\nabstract contract ModuleBase is IModuleBase, UUPSUpgradeable, ERC165Storage {\\r\\n    IDAOAccessControl public accessControl;\\r\\n    address public moduleFactory;\\r\\n    string internal _name;\\r\\n\\r\\n    /// @notice Requires that a function caller has the associated role\\r\\n    modifier authorized() {\\r\\n        if (\\r\\n            !accessControl.actionIsAuthorized(\\r\\n                msg.sender,\\r\\n                address(this),\\r\\n                msg.sig\\r\\n            )\\r\\n        ) {\\r\\n            revert NotAuthorized();\\r\\n        }\\r\\n        _;\\r\\n    }\\r\\n\\r\\n    /// @notice Function for initializing the contract that can only be called once\\r\\n    /// @param _accessControl The address of the access control contract\\r\\n    /// @param _moduleFactory The address of the factory deploying the module\\r\\n    /// @param __name Human readable string of the module name\\r\\n    function __initBase(address _accessControl, address _moduleFactory, string memory __name)\\r\\n        internal\\r\\n        onlyInitializing\\r\\n    {\\r\\n        accessControl = IDAOAccessControl(_accessControl);\\r\\n        moduleFactory = _moduleFactory;\\r\\n        _name = __name;\\r\\n        __UUPSUpgradeable_init();\\r\\n        _registerInterface(type(IModuleBase).interfaceId);\\r\\n    }\\r\\n\\r\\n    /// @dev Applies authorized modifier so that an upgrade require the caller to have the correct role\\r\\n    /// @param newImplementation The address of the new implementation contract being upgraded to\\r\\n    function _authorizeUpgrade(address newImplementation)\\r\\n        internal\\r\\n        override\\r\\n        authorized\\r\\n    {}\\r\\n\\r\\n    /// @notice Returns the module name\\r\\n    /// @return The module name\\r\\n    function name() public view virtual returns (string memory) {\\r\\n      return _name;\\r\\n    }\\r\\n}\\r\\n\",\"keccak256\":\"0xdd4b440c6924fe479e6e3c72e35d109c3af3a9eeb72eab85c65bbe31a2b05dcf\",\"license\":\"Unlicense\"},\"@fractal-framework/core-contracts/contracts/interfaces/IDAO.sol\":{\"content\":\"import \\\"./IModuleBase.sol\\\";\\r\\n\\r\\n//SPDX-License-Identifier: Unlicense\\r\\npragma solidity ^0.8.0;\\r\\n\\r\\ninterface IDAO {\\r\\n    error Unauthorized(bytes32 role, address account);\\r\\n    error UnequalArrayLengths();\\r\\n\\r\\n    event Executed(address[] targets, uint256[] values, bytes[] calldatas);\\r\\n\\r\\n    /// @notice Function for initializing the Dao\\r\\n    /// @param _accessControl The address of the access control contract\\r\\n    /// @param _moduleFactory The address of the module factory\\r\\n    /// @param _name Name of the Dao\\r\\n    function initialize(address _accessControl, address _moduleFactory, string calldata _name) external;\\r\\n\\r\\n    /// @notice A function for executing function calls from the DAO\\r\\n    /// @param targets An array of addresses to target for the function calls\\r\\n    /// @param values An array of ether values to send with the function calls\\r\\n    /// @param calldatas An array of bytes defining the function calls\\r\\n    function execute(\\r\\n        address[] calldata targets,\\r\\n        uint256[] calldata values,\\r\\n        bytes[] calldata calldatas\\r\\n    ) external;\\r\\n}\\r\\n\",\"keccak256\":\"0x016f9ae3dc444dfebc90dcd606aac7d4fc72c1766c584ef91552990563a016fc\",\"license\":\"Unlicense\"},\"@fractal-framework/core-contracts/contracts/interfaces/IDAOAccessControl.sol\":{\"content\":\"//SPDX-License-Identifier: Unlicense\\r\\npragma solidity ^0.8.0;\\r\\n\\r\\ninterface IDAOAccessControl {\\r\\n    struct RoleData {\\r\\n        mapping(address => bool) members;\\r\\n        string adminRole;\\r\\n    }\\r\\n\\r\\n    error UnequalArrayLengths();\\r\\n    error MissingRole(address account, string role);\\r\\n    error OnlySelfRenounce();\\r\\n\\r\\n    event ActionRoleAdded(\\r\\n        address target,\\r\\n        string functionDesc,\\r\\n        bytes4 encodedSig,\\r\\n        string role\\r\\n    );\\r\\n    event ActionRoleRemoved(\\r\\n        address target,\\r\\n        string functionDesc,\\r\\n        bytes4 encodedSig,\\r\\n        string role\\r\\n    );\\r\\n    event RoleAdminChanged(\\r\\n        string role,\\r\\n        string previousAdminRole,\\r\\n        string adminRole\\r\\n    );\\r\\n    event RoleGranted(string role, address account, address admin);\\r\\n    event RoleRevoked(string role, address account, address admin);\\r\\n\\r\\n    /// @notice Initialize DAO action and role permissions\\r\\n    /// @param dao Address to receive DAO role\\r\\n    /// @param roles What permissions are assigned to\\r\\n    /// @param roleAdmins Roles which have the ability to remove or add members\\r\\n    /// @param members Addresses to be granted the specified roles\\r\\n    /// @param targets Contract addresses for actions to be defined on\\r\\n    /// @param functionDescs Function descriptions used to define actions\\r\\n    /// @param actionRoles Roles being granted permission for an action\\r\\n    function initialize(\\r\\n        address dao,\\r\\n        string[] memory roles,\\r\\n        string[] memory roleAdmins,\\r\\n        address[][] memory members,\\r\\n        address[] memory targets,\\r\\n        string[] memory functionDescs,\\r\\n        string[][] memory actionRoles\\r\\n    ) external;\\r\\n\\r\\n    /// @notice Grants roles to the specified addresses and defines admin roles\\r\\n    /// @notice This function can only be called by the DAO\\r\\n    /// @param roles The roles being granted\\r\\n    /// @param roleAdmins The roles being granted as admins of the specified of roles\\r\\n    /// @param members Addresses being granted each specified role\\r\\n    function daoGrantRolesAndAdmins(\\r\\n        string[] memory roles,\\r\\n        string[] memory roleAdmins,\\r\\n        address[][] memory members\\r\\n    ) external;\\r\\n\\r\\n    /// @notice Grants roles to the specified addresses\\r\\n    /// @notice This function can only be called by the DAO\\r\\n    /// @param roles The roles being granted\\r\\n    /// @param members Addresses being granted each specified role\\r\\n    function daoGrantRoles(string[] memory roles, address[][] memory members)\\r\\n        external;\\r\\n\\r\\n    /// @notice Authorizes roles to execute the specified actions\\r\\n    /// @notice This function can only be called by the DAO\\r\\n    /// @param targets The contract addresses that the action functions are implemented on\\r\\n    /// @param functionDescs The function descriptions used to define the actions\\r\\n    /// @param roles Roles being granted permission for an action\\r\\n    function daoAddActionsRoles(\\r\\n        address[] memory targets,\\r\\n        string[] memory functionDescs,\\r\\n        string[][] memory roles\\r\\n    ) external;\\r\\n\\r\\n    /// @notice Removes autorization for roles to execute the specified actions\\r\\n    /// @notice This function can only be called by the DAO\\r\\n    /// @param targets The contract addresses that the action functions are implemented on\\r\\n    /// @param functionDescs The function description used to define the actions\\r\\n    /// @param roles Roles that action permissions are being removed on\\r\\n    function daoRemoveActionsRoles(\\r\\n        address[] memory targets,\\r\\n        string[] memory functionDescs,\\r\\n        string[][] memory roles\\r\\n    ) external;\\r\\n\\r\\n    /// @notice Grants a role to the specified address\\r\\n    /// @notice This function can only be called by an admin of the specified role\\r\\n    /// @param role The role being granted\\r\\n    /// @param account The address being granted the specified role\\r\\n    function adminGrantRole(string memory role, address account)\\r\\n        external;\\r\\n\\r\\n    /// @notice Revokes a role from the specified address\\r\\n    /// @notice This function can only be called by an admin of the specified role\\r\\n    /// @param role The role being revoked\\r\\n    /// @param account The address the role is being revoked from\\r\\n    function adminRevokeRole(string memory role, address account)\\r\\n        external;\\r\\n\\r\\n    /// @notice Enables an address to remove one of its own roles\\r\\n    /// @notice This function can only be called by the account specified\\r\\n    /// @param role The role being renounced\\r\\n    /// @param account The address renouncing the role\\r\\n    function userRenounceRole(string memory role, address account) external;\\r\\n\\r\\n    /// @notice Checks if a caller has the permissions to execute the specific action\\r\\n    /// @param caller Address attempting to execute the action\\r\\n    /// @param target Contract address corresponding to the action\\r\\n    /// @param sig The function signature used to define the action\\r\\n    function actionIsAuthorized(\\r\\n        address caller,\\r\\n        address target,\\r\\n        bytes4 sig\\r\\n    ) external view returns (bool isAuthorized);\\r\\n\\r\\n    /// @notice Returns the roles autorized to execute the specified action\\r\\n    /// @param target Contract address corresponding to the action\\r\\n    /// @param functionDesc The function description used to define the action\\r\\n    function getActionRoles(address target, string memory functionDesc)\\r\\n        external\\r\\n        view\\r\\n        returns (string[] memory roles);\\r\\n\\r\\n    /// @notice Checks if a specific role is authorized for an action\\r\\n    /// @param role Role that authorization is being checked on\\r\\n    /// @param target Contract address corresponding to the action\\r\\n    /// @param functionDesc Function description used to define the action\\r\\n    /// @return isAuthorized Indicates whether the role is authorized to execute the action\\r\\n    function isRoleAuthorized(\\r\\n        string calldata role,\\r\\n        address target,\\r\\n        string memory functionDesc\\r\\n    ) external view returns (bool isAuthorized);\\r\\n\\r\\n    /// @notice Returns whether the account has been granted the role\\r\\n    /// @param role Role that authorization is being checked on\\r\\n    /// @param account Address that the role authorization is being check on\\r\\n    /// @return boolean Indicates whether the address has been granted the role\\r\\n    function hasRole(string memory role, address account)\\r\\n        external\\r\\n        view\\r\\n        returns (bool);\\r\\n\\r\\n    /// @notice Returns the role that is the admin of the specified role\\r\\n    /// @param role Role that the admin role is being returned for\\r\\n    /// @return string The admin role of the specified role\\r\\n    function getRoleAdmin(string memory role)\\r\\n        external\\r\\n        view\\r\\n        returns (string memory);\\r\\n\\r\\n    /// @return string The string \\\"DAO_ROLE\\\"\\r\\n    function DAO_ROLE() external view returns (string memory);\\r\\n}\\r\\n\",\"keccak256\":\"0x8862f578b4fe6a79370b5cbe896e59df4722e95dbb1b0d2e286e335915ed616c\",\"license\":\"Unlicense\"},\"@fractal-framework/core-contracts/contracts/interfaces/IModuleBase.sol\":{\"content\":\"//SPDX-License-Identifier: Unlicense\\r\\npragma solidity ^0.8.0;\\r\\n\\r\\nimport \\\"./IDAOAccessControl.sol\\\";\\r\\n\\r\\ninterface IModuleBase {\\r\\n    error NotAuthorized();\\r\\n\\r\\n    /// @return IDAOAccessControl The Access control interface\\r\\n    function accessControl() external view returns (IDAOAccessControl);\\r\\n\\r\\n    /// @return string The string \\\"Name\\\"\\r\\n    function name() external view returns (string memory);\\r\\n}\\r\\n\",\"keccak256\":\"0xf7aa0a6fc64e3ea68e1fe799390408e62bfd9d1339d6c31c6d862f3af158cca6\",\"license\":\"Unlicense\"},\"@openzeppelin/contracts-upgradeable/interfaces/draft-IERC1822Upgradeable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.5.0) (interfaces/draft-IERC1822.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev ERC1822: Universal Upgradeable Proxy Standard (UUPS) documents a method for upgradeability through a simplified\\n * proxy whose upgrades are fully controlled by the current implementation.\\n */\\ninterface IERC1822ProxiableUpgradeable {\\n    /**\\n     * @dev Returns the storage slot that the proxiable contract assumes is being used to store the implementation\\n     * address.\\n     *\\n     * IMPORTANT: A proxy pointing at a proxiable contract should not be considered proxiable itself, because this risks\\n     * bricking a proxy that upgrades to it, by delegating to itself until out of gas. Thus it is critical that this\\n     * function revert if invoked through a proxy.\\n     */\\n    function proxiableUUID() external view returns (bytes32);\\n}\\n\",\"keccak256\":\"0x77c89f893e403efc6929ba842b7ccf6534d4ffe03afe31670b4a528c0ad78c0f\",\"license\":\"MIT\"},\"@openzeppelin/contracts-upgradeable/proxy/ERC1967/ERC1967UpgradeUpgradeable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.5.0) (proxy/ERC1967/ERC1967Upgrade.sol)\\n\\npragma solidity ^0.8.2;\\n\\nimport \\\"../beacon/IBeaconUpgradeable.sol\\\";\\nimport \\\"../../interfaces/draft-IERC1822Upgradeable.sol\\\";\\nimport \\\"../../utils/AddressUpgradeable.sol\\\";\\nimport \\\"../../utils/StorageSlotUpgradeable.sol\\\";\\nimport \\\"../utils/Initializable.sol\\\";\\n\\n/**\\n * @dev This abstract contract provides getters and event emitting update functions for\\n * https://eips.ethereum.org/EIPS/eip-1967[EIP1967] slots.\\n *\\n * _Available since v4.1._\\n *\\n * @custom:oz-upgrades-unsafe-allow delegatecall\\n */\\nabstract contract ERC1967UpgradeUpgradeable is Initializable {\\n    function __ERC1967Upgrade_init() internal onlyInitializing {\\n    }\\n\\n    function __ERC1967Upgrade_init_unchained() internal onlyInitializing {\\n    }\\n    // This is the keccak-256 hash of \\\"eip1967.proxy.rollback\\\" subtracted by 1\\n    bytes32 private constant _ROLLBACK_SLOT = 0x4910fdfa16fed3260ed0e7147f7cc6da11a60208b5b9406d12a635614ffd9143;\\n\\n    /**\\n     * @dev Storage slot with the address of the current implementation.\\n     * This is the keccak-256 hash of \\\"eip1967.proxy.implementation\\\" subtracted by 1, and is\\n     * validated in the constructor.\\n     */\\n    bytes32 internal constant _IMPLEMENTATION_SLOT = 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc;\\n\\n    /**\\n     * @dev Emitted when the implementation is upgraded.\\n     */\\n    event Upgraded(address indexed implementation);\\n\\n    /**\\n     * @dev Returns the current implementation address.\\n     */\\n    function _getImplementation() internal view returns (address) {\\n        return StorageSlotUpgradeable.getAddressSlot(_IMPLEMENTATION_SLOT).value;\\n    }\\n\\n    /**\\n     * @dev Stores a new address in the EIP1967 implementation slot.\\n     */\\n    function _setImplementation(address newImplementation) private {\\n        require(AddressUpgradeable.isContract(newImplementation), \\\"ERC1967: new implementation is not a contract\\\");\\n        StorageSlotUpgradeable.getAddressSlot(_IMPLEMENTATION_SLOT).value = newImplementation;\\n    }\\n\\n    /**\\n     * @dev Perform implementation upgrade\\n     *\\n     * Emits an {Upgraded} event.\\n     */\\n    function _upgradeTo(address newImplementation) internal {\\n        _setImplementation(newImplementation);\\n        emit Upgraded(newImplementation);\\n    }\\n\\n    /**\\n     * @dev Perform implementation upgrade with additional setup call.\\n     *\\n     * Emits an {Upgraded} event.\\n     */\\n    function _upgradeToAndCall(\\n        address newImplementation,\\n        bytes memory data,\\n        bool forceCall\\n    ) internal {\\n        _upgradeTo(newImplementation);\\n        if (data.length > 0 || forceCall) {\\n            _functionDelegateCall(newImplementation, data);\\n        }\\n    }\\n\\n    /**\\n     * @dev Perform implementation upgrade with security checks for UUPS proxies, and additional setup call.\\n     *\\n     * Emits an {Upgraded} event.\\n     */\\n    function _upgradeToAndCallUUPS(\\n        address newImplementation,\\n        bytes memory data,\\n        bool forceCall\\n    ) internal {\\n        // Upgrades from old implementations will perform a rollback test. This test requires the new\\n        // implementation to upgrade back to the old, non-ERC1822 compliant, implementation. Removing\\n        // this special case will break upgrade paths from old UUPS implementation to new ones.\\n        if (StorageSlotUpgradeable.getBooleanSlot(_ROLLBACK_SLOT).value) {\\n            _setImplementation(newImplementation);\\n        } else {\\n            try IERC1822ProxiableUpgradeable(newImplementation).proxiableUUID() returns (bytes32 slot) {\\n                require(slot == _IMPLEMENTATION_SLOT, \\\"ERC1967Upgrade: unsupported proxiableUUID\\\");\\n            } catch {\\n                revert(\\\"ERC1967Upgrade: new implementation is not UUPS\\\");\\n            }\\n            _upgradeToAndCall(newImplementation, data, forceCall);\\n        }\\n    }\\n\\n    /**\\n     * @dev Storage slot with the admin of the contract.\\n     * This is the keccak-256 hash of \\\"eip1967.proxy.admin\\\" subtracted by 1, and is\\n     * validated in the constructor.\\n     */\\n    bytes32 internal constant _ADMIN_SLOT = 0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103;\\n\\n    /**\\n     * @dev Emitted when the admin account has changed.\\n     */\\n    event AdminChanged(address previousAdmin, address newAdmin);\\n\\n    /**\\n     * @dev Returns the current admin.\\n     */\\n    function _getAdmin() internal view returns (address) {\\n        return StorageSlotUpgradeable.getAddressSlot(_ADMIN_SLOT).value;\\n    }\\n\\n    /**\\n     * @dev Stores a new address in the EIP1967 admin slot.\\n     */\\n    function _setAdmin(address newAdmin) private {\\n        require(newAdmin != address(0), \\\"ERC1967: new admin is the zero address\\\");\\n        StorageSlotUpgradeable.getAddressSlot(_ADMIN_SLOT).value = newAdmin;\\n    }\\n\\n    /**\\n     * @dev Changes the admin of the proxy.\\n     *\\n     * Emits an {AdminChanged} event.\\n     */\\n    function _changeAdmin(address newAdmin) internal {\\n        emit AdminChanged(_getAdmin(), newAdmin);\\n        _setAdmin(newAdmin);\\n    }\\n\\n    /**\\n     * @dev The storage slot of the UpgradeableBeacon contract which defines the implementation for this proxy.\\n     * This is bytes32(uint256(keccak256('eip1967.proxy.beacon')) - 1)) and is validated in the constructor.\\n     */\\n    bytes32 internal constant _BEACON_SLOT = 0xa3f0ad74e5423aebfd80d3ef4346578335a9a72aeaee59ff6cb3582b35133d50;\\n\\n    /**\\n     * @dev Emitted when the beacon is upgraded.\\n     */\\n    event BeaconUpgraded(address indexed beacon);\\n\\n    /**\\n     * @dev Returns the current beacon.\\n     */\\n    function _getBeacon() internal view returns (address) {\\n        return StorageSlotUpgradeable.getAddressSlot(_BEACON_SLOT).value;\\n    }\\n\\n    /**\\n     * @dev Stores a new beacon in the EIP1967 beacon slot.\\n     */\\n    function _setBeacon(address newBeacon) private {\\n        require(AddressUpgradeable.isContract(newBeacon), \\\"ERC1967: new beacon is not a contract\\\");\\n        require(\\n            AddressUpgradeable.isContract(IBeaconUpgradeable(newBeacon).implementation()),\\n            \\\"ERC1967: beacon implementation is not a contract\\\"\\n        );\\n        StorageSlotUpgradeable.getAddressSlot(_BEACON_SLOT).value = newBeacon;\\n    }\\n\\n    /**\\n     * @dev Perform beacon upgrade with additional setup call. Note: This upgrades the address of the beacon, it does\\n     * not upgrade the implementation contained in the beacon (see {UpgradeableBeacon-_setImplementation} for that).\\n     *\\n     * Emits a {BeaconUpgraded} event.\\n     */\\n    function _upgradeBeaconToAndCall(\\n        address newBeacon,\\n        bytes memory data,\\n        bool forceCall\\n    ) internal {\\n        _setBeacon(newBeacon);\\n        emit BeaconUpgraded(newBeacon);\\n        if (data.length > 0 || forceCall) {\\n            _functionDelegateCall(IBeaconUpgradeable(newBeacon).implementation(), data);\\n        }\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCall-address-bytes-string-}[`functionCall`],\\n     * but performing a delegate call.\\n     *\\n     * _Available since v3.4._\\n     */\\n    function _functionDelegateCall(address target, bytes memory data) private returns (bytes memory) {\\n        require(AddressUpgradeable.isContract(target), \\\"Address: delegate call to non-contract\\\");\\n\\n        // solhint-disable-next-line avoid-low-level-calls\\n        (bool success, bytes memory returndata) = target.delegatecall(data);\\n        return AddressUpgradeable.verifyCallResult(success, returndata, \\\"Address: low-level delegate call failed\\\");\\n    }\\n\\n    /**\\n     * @dev This empty reserved space is put in place to allow future versions to add new\\n     * variables without shifting down storage in the inheritance chain.\\n     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps\\n     */\\n    uint256[50] private __gap;\\n}\\n\",\"keccak256\":\"0x315887e846f1e5f8d8fa535a229d318bb9290aaa69485117f1ee8a9a6b3be823\",\"license\":\"MIT\"},\"@openzeppelin/contracts-upgradeable/proxy/beacon/IBeaconUpgradeable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts v4.4.1 (proxy/beacon/IBeacon.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev This is the interface that {BeaconProxy} expects of its beacon.\\n */\\ninterface IBeaconUpgradeable {\\n    /**\\n     * @dev Must return an address that can be used as a delegate call target.\\n     *\\n     * {BeaconProxy} will check that this address is a contract.\\n     */\\n    function implementation() external view returns (address);\\n}\\n\",\"keccak256\":\"0x24b86ac8c005b8c654fbf6ac34a5a4f61580d7273541e83e013e89d66fbf0908\",\"license\":\"MIT\"},\"@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.5.0) (proxy/utils/Initializable.sol)\\n\\npragma solidity ^0.8.0;\\n\\nimport \\\"../../utils/AddressUpgradeable.sol\\\";\\n\\n/**\\n * @dev This is a base contract to aid in writing upgradeable contracts, or any kind of contract that will be deployed\\n * behind a proxy. Since proxied contracts do not make use of a constructor, it's common to move constructor logic to an\\n * external initializer function, usually called `initialize`. It then becomes necessary to protect this initializer\\n * function so it can only be called once. The {initializer} modifier provided by this contract will have this effect.\\n *\\n * TIP: To avoid leaving the proxy in an uninitialized state, the initializer function should be called as early as\\n * possible by providing the encoded function call as the `_data` argument to {ERC1967Proxy-constructor}.\\n *\\n * CAUTION: When used with inheritance, manual care must be taken to not invoke a parent initializer twice, or to ensure\\n * that all initializers are idempotent. This is not verified automatically as constructors are by Solidity.\\n *\\n * [CAUTION]\\n * ====\\n * Avoid leaving a contract uninitialized.\\n *\\n * An uninitialized contract can be taken over by an attacker. This applies to both a proxy and its implementation\\n * contract, which may impact the proxy. To initialize the implementation contract, you can either invoke the\\n * initializer manually, or you can include a constructor to automatically mark it as initialized when it is deployed:\\n *\\n * [.hljs-theme-light.nopadding]\\n * ```\\n * /// @custom:oz-upgrades-unsafe-allow constructor\\n * constructor() initializer {}\\n * ```\\n * ====\\n */\\nabstract contract Initializable {\\n    /**\\n     * @dev Indicates that the contract has been initialized.\\n     */\\n    bool private _initialized;\\n\\n    /**\\n     * @dev Indicates that the contract is in the process of being initialized.\\n     */\\n    bool private _initializing;\\n\\n    /**\\n     * @dev Modifier to protect an initializer function from being invoked twice.\\n     */\\n    modifier initializer() {\\n        // If the contract is initializing we ignore whether _initialized is set in order to support multiple\\n        // inheritance patterns, but we only do this in the context of a constructor, because in other contexts the\\n        // contract may have been reentered.\\n        require(_initializing ? _isConstructor() : !_initialized, \\\"Initializable: contract is already initialized\\\");\\n\\n        bool isTopLevelCall = !_initializing;\\n        if (isTopLevelCall) {\\n            _initializing = true;\\n            _initialized = true;\\n        }\\n\\n        _;\\n\\n        if (isTopLevelCall) {\\n            _initializing = false;\\n        }\\n    }\\n\\n    /**\\n     * @dev Modifier to protect an initialization function so that it can only be invoked by functions with the\\n     * {initializer} modifier, directly or indirectly.\\n     */\\n    modifier onlyInitializing() {\\n        require(_initializing, \\\"Initializable: contract is not initializing\\\");\\n        _;\\n    }\\n\\n    function _isConstructor() private view returns (bool) {\\n        return !AddressUpgradeable.isContract(address(this));\\n    }\\n}\\n\",\"keccak256\":\"0x372b0bc04e3b4c074559bbbfb1317afddb56de5504158ca25a7f9cd403980445\",\"license\":\"MIT\"},\"@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.5.0) (proxy/utils/UUPSUpgradeable.sol)\\n\\npragma solidity ^0.8.0;\\n\\nimport \\\"../../interfaces/draft-IERC1822Upgradeable.sol\\\";\\nimport \\\"../ERC1967/ERC1967UpgradeUpgradeable.sol\\\";\\nimport \\\"./Initializable.sol\\\";\\n\\n/**\\n * @dev An upgradeability mechanism designed for UUPS proxies. The functions included here can perform an upgrade of an\\n * {ERC1967Proxy}, when this contract is set as the implementation behind such a proxy.\\n *\\n * A security mechanism ensures that an upgrade does not turn off upgradeability accidentally, although this risk is\\n * reinstated if the upgrade retains upgradeability but removes the security mechanism, e.g. by replacing\\n * `UUPSUpgradeable` with a custom implementation of upgrades.\\n *\\n * The {_authorizeUpgrade} function must be overridden to include access restriction to the upgrade mechanism.\\n *\\n * _Available since v4.1._\\n */\\nabstract contract UUPSUpgradeable is Initializable, IERC1822ProxiableUpgradeable, ERC1967UpgradeUpgradeable {\\n    function __UUPSUpgradeable_init() internal onlyInitializing {\\n    }\\n\\n    function __UUPSUpgradeable_init_unchained() internal onlyInitializing {\\n    }\\n    /// @custom:oz-upgrades-unsafe-allow state-variable-immutable state-variable-assignment\\n    address private immutable __self = address(this);\\n\\n    /**\\n     * @dev Check that the execution is being performed through a delegatecall call and that the execution context is\\n     * a proxy contract with an implementation (as defined in ERC1967) pointing to self. This should only be the case\\n     * for UUPS and transparent proxies that are using the current contract as their implementation. Execution of a\\n     * function through ERC1167 minimal proxies (clones) would not normally pass this test, but is not guaranteed to\\n     * fail.\\n     */\\n    modifier onlyProxy() {\\n        require(address(this) != __self, \\\"Function must be called through delegatecall\\\");\\n        require(_getImplementation() == __self, \\\"Function must be called through active proxy\\\");\\n        _;\\n    }\\n\\n    /**\\n     * @dev Check that the execution is not being performed through a delegate call. This allows a function to be\\n     * callable on the implementing contract but not through proxies.\\n     */\\n    modifier notDelegated() {\\n        require(address(this) == __self, \\\"UUPSUpgradeable: must not be called through delegatecall\\\");\\n        _;\\n    }\\n\\n    /**\\n     * @dev Implementation of the ERC1822 {proxiableUUID} function. This returns the storage slot used by the\\n     * implementation. It is used to validate that the this implementation remains valid after an upgrade.\\n     *\\n     * IMPORTANT: A proxy pointing at a proxiable contract should not be considered proxiable itself, because this risks\\n     * bricking a proxy that upgrades to it, by delegating to itself until out of gas. Thus it is critical that this\\n     * function revert if invoked through a proxy. This is guaranteed by the `notDelegated` modifier.\\n     */\\n    function proxiableUUID() external view virtual override notDelegated returns (bytes32) {\\n        return _IMPLEMENTATION_SLOT;\\n    }\\n\\n    /**\\n     * @dev Upgrade the implementation of the proxy to `newImplementation`.\\n     *\\n     * Calls {_authorizeUpgrade}.\\n     *\\n     * Emits an {Upgraded} event.\\n     */\\n    function upgradeTo(address newImplementation) external virtual onlyProxy {\\n        _authorizeUpgrade(newImplementation);\\n        _upgradeToAndCallUUPS(newImplementation, new bytes(0), false);\\n    }\\n\\n    /**\\n     * @dev Upgrade the implementation of the proxy to `newImplementation`, and subsequently execute the function call\\n     * encoded in `data`.\\n     *\\n     * Calls {_authorizeUpgrade}.\\n     *\\n     * Emits an {Upgraded} event.\\n     */\\n    function upgradeToAndCall(address newImplementation, bytes memory data) external payable virtual onlyProxy {\\n        _authorizeUpgrade(newImplementation);\\n        _upgradeToAndCallUUPS(newImplementation, data, true);\\n    }\\n\\n    /**\\n     * @dev Function that should revert when `msg.sender` is not authorized to upgrade the contract. Called by\\n     * {upgradeTo} and {upgradeToAndCall}.\\n     *\\n     * Normally, this function will use an xref:access.adoc[access control] modifier such as {Ownable-onlyOwner}.\\n     *\\n     * ```solidity\\n     * function _authorizeUpgrade(address) internal override onlyOwner {}\\n     * ```\\n     */\\n    function _authorizeUpgrade(address newImplementation) internal virtual;\\n\\n    /**\\n     * @dev This empty reserved space is put in place to allow future versions to add new\\n     * variables without shifting down storage in the inheritance chain.\\n     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps\\n     */\\n    uint256[50] private __gap;\\n}\\n\",\"keccak256\":\"0x6e36e9b4b71de699c2f3f0d4e4d1aa0b35da99a26e8d5b91ef09ba234b4ef270\",\"license\":\"MIT\"},\"@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.5.0) (utils/Address.sol)\\n\\npragma solidity ^0.8.1;\\n\\n/**\\n * @dev Collection of functions related to the address type\\n */\\nlibrary AddressUpgradeable {\\n    /**\\n     * @dev Returns true if `account` is a contract.\\n     *\\n     * [IMPORTANT]\\n     * ====\\n     * It is unsafe to assume that an address for which this function returns\\n     * false is an externally-owned account (EOA) and not a contract.\\n     *\\n     * Among others, `isContract` will return false for the following\\n     * types of addresses:\\n     *\\n     *  - an externally-owned account\\n     *  - a contract in construction\\n     *  - an address where a contract will be created\\n     *  - an address where a contract lived, but was destroyed\\n     * ====\\n     *\\n     * [IMPORTANT]\\n     * ====\\n     * You shouldn't rely on `isContract` to protect against flash loan attacks!\\n     *\\n     * Preventing calls from contracts is highly discouraged. It breaks composability, breaks support for smart wallets\\n     * like Gnosis Safe, and does not provide security since it can be circumvented by calling from a contract\\n     * constructor.\\n     * ====\\n     */\\n    function isContract(address account) internal view returns (bool) {\\n        // This method relies on extcodesize/address.code.length, which returns 0\\n        // for contracts in construction, since the code is only stored at the end\\n        // of the constructor execution.\\n\\n        return account.code.length > 0;\\n    }\\n\\n    /**\\n     * @dev Replacement for Solidity's `transfer`: sends `amount` wei to\\n     * `recipient`, forwarding all available gas and reverting on errors.\\n     *\\n     * https://eips.ethereum.org/EIPS/eip-1884[EIP1884] increases the gas cost\\n     * of certain opcodes, possibly making contracts go over the 2300 gas limit\\n     * imposed by `transfer`, making them unable to receive funds via\\n     * `transfer`. {sendValue} removes this limitation.\\n     *\\n     * https://diligence.consensys.net/posts/2019/09/stop-using-soliditys-transfer-now/[Learn more].\\n     *\\n     * IMPORTANT: because control is transferred to `recipient`, care must be\\n     * taken to not create reentrancy vulnerabilities. Consider using\\n     * {ReentrancyGuard} or the\\n     * https://solidity.readthedocs.io/en/v0.5.11/security-considerations.html#use-the-checks-effects-interactions-pattern[checks-effects-interactions pattern].\\n     */\\n    function sendValue(address payable recipient, uint256 amount) internal {\\n        require(address(this).balance >= amount, \\\"Address: insufficient balance\\\");\\n\\n        (bool success, ) = recipient.call{value: amount}(\\\"\\\");\\n        require(success, \\\"Address: unable to send value, recipient may have reverted\\\");\\n    }\\n\\n    /**\\n     * @dev Performs a Solidity function call using a low level `call`. A\\n     * plain `call` is an unsafe replacement for a function call: use this\\n     * function instead.\\n     *\\n     * If `target` reverts with a revert reason, it is bubbled up by this\\n     * function (like regular Solidity function calls).\\n     *\\n     * Returns the raw returned data. To convert to the expected return value,\\n     * use https://solidity.readthedocs.io/en/latest/units-and-global-variables.html?highlight=abi.decode#abi-encoding-and-decoding-functions[`abi.decode`].\\n     *\\n     * Requirements:\\n     *\\n     * - `target` must be a contract.\\n     * - calling `target` with `data` must not revert.\\n     *\\n     * _Available since v3.1._\\n     */\\n    function functionCall(address target, bytes memory data) internal returns (bytes memory) {\\n        return functionCall(target, data, \\\"Address: low-level call failed\\\");\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`], but with\\n     * `errorMessage` as a fallback revert reason when `target` reverts.\\n     *\\n     * _Available since v3.1._\\n     */\\n    function functionCall(\\n        address target,\\n        bytes memory data,\\n        string memory errorMessage\\n    ) internal returns (bytes memory) {\\n        return functionCallWithValue(target, data, 0, errorMessage);\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],\\n     * but also transferring `value` wei to `target`.\\n     *\\n     * Requirements:\\n     *\\n     * - the calling contract must have an ETH balance of at least `value`.\\n     * - the called Solidity function must be `payable`.\\n     *\\n     * _Available since v3.1._\\n     */\\n    function functionCallWithValue(\\n        address target,\\n        bytes memory data,\\n        uint256 value\\n    ) internal returns (bytes memory) {\\n        return functionCallWithValue(target, data, value, \\\"Address: low-level call with value failed\\\");\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCallWithValue-address-bytes-uint256-}[`functionCallWithValue`], but\\n     * with `errorMessage` as a fallback revert reason when `target` reverts.\\n     *\\n     * _Available since v3.1._\\n     */\\n    function functionCallWithValue(\\n        address target,\\n        bytes memory data,\\n        uint256 value,\\n        string memory errorMessage\\n    ) internal returns (bytes memory) {\\n        require(address(this).balance >= value, \\\"Address: insufficient balance for call\\\");\\n        require(isContract(target), \\\"Address: call to non-contract\\\");\\n\\n        (bool success, bytes memory returndata) = target.call{value: value}(data);\\n        return verifyCallResult(success, returndata, errorMessage);\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],\\n     * but performing a static call.\\n     *\\n     * _Available since v3.3._\\n     */\\n    function functionStaticCall(address target, bytes memory data) internal view returns (bytes memory) {\\n        return functionStaticCall(target, data, \\\"Address: low-level static call failed\\\");\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCall-address-bytes-string-}[`functionCall`],\\n     * but performing a static call.\\n     *\\n     * _Available since v3.3._\\n     */\\n    function functionStaticCall(\\n        address target,\\n        bytes memory data,\\n        string memory errorMessage\\n    ) internal view returns (bytes memory) {\\n        require(isContract(target), \\\"Address: static call to non-contract\\\");\\n\\n        (bool success, bytes memory returndata) = target.staticcall(data);\\n        return verifyCallResult(success, returndata, errorMessage);\\n    }\\n\\n    /**\\n     * @dev Tool to verifies that a low level call was successful, and revert if it wasn't, either by bubbling the\\n     * revert reason using the provided one.\\n     *\\n     * _Available since v4.3._\\n     */\\n    function verifyCallResult(\\n        bool success,\\n        bytes memory returndata,\\n        string memory errorMessage\\n    ) internal pure returns (bytes memory) {\\n        if (success) {\\n            return returndata;\\n        } else {\\n            // Look for revert reason and bubble it up if present\\n            if (returndata.length > 0) {\\n                // The easiest way to bubble the revert reason is using memory via assembly\\n\\n                assembly {\\n                    let returndata_size := mload(returndata)\\n                    revert(add(32, returndata), returndata_size)\\n                }\\n            } else {\\n                revert(errorMessage);\\n            }\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x55cf2bd9fc76704ddcdc19834cd288b7de00fc0f298a40ea16a954ae8991db2d\",\"license\":\"MIT\"},\"@openzeppelin/contracts-upgradeable/utils/StorageSlotUpgradeable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts v4.4.1 (utils/StorageSlot.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Library for reading and writing primitive types to specific storage slots.\\n *\\n * Storage slots are often used to avoid storage conflict when dealing with upgradeable contracts.\\n * This library helps with reading and writing to such slots without the need for inline assembly.\\n *\\n * The functions in this library return Slot structs that contain a `value` member that can be used to read or write.\\n *\\n * Example usage to set ERC1967 implementation slot:\\n * ```\\n * contract ERC1967 {\\n *     bytes32 internal constant _IMPLEMENTATION_SLOT = 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc;\\n *\\n *     function _getImplementation() internal view returns (address) {\\n *         return StorageSlot.getAddressSlot(_IMPLEMENTATION_SLOT).value;\\n *     }\\n *\\n *     function _setImplementation(address newImplementation) internal {\\n *         require(Address.isContract(newImplementation), \\\"ERC1967: new implementation is not a contract\\\");\\n *         StorageSlot.getAddressSlot(_IMPLEMENTATION_SLOT).value = newImplementation;\\n *     }\\n * }\\n * ```\\n *\\n * _Available since v4.1 for `address`, `bool`, `bytes32`, and `uint256`._\\n */\\nlibrary StorageSlotUpgradeable {\\n    struct AddressSlot {\\n        address value;\\n    }\\n\\n    struct BooleanSlot {\\n        bool value;\\n    }\\n\\n    struct Bytes32Slot {\\n        bytes32 value;\\n    }\\n\\n    struct Uint256Slot {\\n        uint256 value;\\n    }\\n\\n    /**\\n     * @dev Returns an `AddressSlot` with member `value` located at `slot`.\\n     */\\n    function getAddressSlot(bytes32 slot) internal pure returns (AddressSlot storage r) {\\n        assembly {\\n            r.slot := slot\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns an `BooleanSlot` with member `value` located at `slot`.\\n     */\\n    function getBooleanSlot(bytes32 slot) internal pure returns (BooleanSlot storage r) {\\n        assembly {\\n            r.slot := slot\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns an `Bytes32Slot` with member `value` located at `slot`.\\n     */\\n    function getBytes32Slot(bytes32 slot) internal pure returns (Bytes32Slot storage r) {\\n        assembly {\\n            r.slot := slot\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns an `Uint256Slot` with member `value` located at `slot`.\\n     */\\n    function getUint256Slot(bytes32 slot) internal pure returns (Uint256Slot storage r) {\\n        assembly {\\n            r.slot := slot\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x422c3d27d0d5681cea93acbb0dcb175fa5b461b5b7731da7ff77e51f0f0174c7\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/introspection/ERC165.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts v4.4.1 (utils/introspection/ERC165.sol)\\n\\npragma solidity ^0.8.0;\\n\\nimport \\\"./IERC165.sol\\\";\\n\\n/**\\n * @dev Implementation of the {IERC165} interface.\\n *\\n * Contracts that want to implement ERC165 should inherit from this contract and override {supportsInterface} to check\\n * for the additional interface id that will be supported. For example:\\n *\\n * ```solidity\\n * function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {\\n *     return interfaceId == type(MyInterface).interfaceId || super.supportsInterface(interfaceId);\\n * }\\n * ```\\n *\\n * Alternatively, {ERC165Storage} provides an easier to use but more expensive implementation.\\n */\\nabstract contract ERC165 is IERC165 {\\n    /**\\n     * @dev See {IERC165-supportsInterface}.\\n     */\\n    function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {\\n        return interfaceId == type(IERC165).interfaceId;\\n    }\\n}\\n\",\"keccak256\":\"0xd10975de010d89fd1c78dc5e8a9a7e7f496198085c151648f20cba166b32582b\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/introspection/ERC165Storage.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts v4.4.1 (utils/introspection/ERC165Storage.sol)\\n\\npragma solidity ^0.8.0;\\n\\nimport \\\"./ERC165.sol\\\";\\n\\n/**\\n * @dev Storage based implementation of the {IERC165} interface.\\n *\\n * Contracts may inherit from this and call {_registerInterface} to declare\\n * their support of an interface.\\n */\\nabstract contract ERC165Storage is ERC165 {\\n    /**\\n     * @dev Mapping of interface ids to whether or not it's supported.\\n     */\\n    mapping(bytes4 => bool) private _supportedInterfaces;\\n\\n    /**\\n     * @dev See {IERC165-supportsInterface}.\\n     */\\n    function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {\\n        return super.supportsInterface(interfaceId) || _supportedInterfaces[interfaceId];\\n    }\\n\\n    /**\\n     * @dev Registers the contract as an implementer of the interface defined by\\n     * `interfaceId`. Support of the actual ERC165 interface is automatic and\\n     * registering its interface id is not required.\\n     *\\n     * See {IERC165-supportsInterface}.\\n     *\\n     * Requirements:\\n     *\\n     * - `interfaceId` cannot be the ERC165 invalid interface (`0xffffffff`).\\n     */\\n    function _registerInterface(bytes4 interfaceId) internal virtual {\\n        require(interfaceId != 0xffffffff, \\\"ERC165: invalid interface id\\\");\\n        _supportedInterfaces[interfaceId] = true;\\n    }\\n}\\n\",\"keccak256\":\"0x77bf0086774bab931413c3388d3a0f7d44cf6878965b72147f57bb0fbbf394bd\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/introspection/IERC165.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts v4.4.1 (utils/introspection/IERC165.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Interface of the ERC165 standard, as defined in the\\n * https://eips.ethereum.org/EIPS/eip-165[EIP].\\n *\\n * Implementers can declare support of contract interfaces, which can then be\\n * queried by others ({ERC165Checker}).\\n *\\n * For an implementation, see {ERC165}.\\n */\\ninterface IERC165 {\\n    /**\\n     * @dev Returns true if this contract implements the interface defined by\\n     * `interfaceId`. See the corresponding\\n     * https://eips.ethereum.org/EIPS/eip-165#how-interfaces-are-identified[EIP section]\\n     * to learn more about how these ids are created.\\n     *\\n     * This function call must use less than 30 000 gas.\\n     */\\n    function supportsInterface(bytes4 interfaceId) external view returns (bool);\\n}\\n\",\"keccak256\":\"0x447a5f3ddc18419d41ff92b3773fb86471b1db25773e07f877f548918a185bf1\",\"license\":\"MIT\"},\"contracts/Governor/Timelock.sol\":{\"content\":\"//SPDX-License-Identifier: Unlicense\\r\\n// OpenZeppelin Contracts v4.4.1 (governance/TimelockController.sol)\\r\\n\\r\\npragma solidity ^0.8.0;\\r\\n\\r\\nimport \\\"@fractal-framework/core-contracts/contracts/ModuleBase.sol\\\";\\r\\nimport \\\"@fractal-framework/core-contracts/contracts/interfaces/IDAO.sol\\\";\\r\\nimport \\\"../interfaces/ITimelock.sol\\\";\\r\\n\\r\\n/// @dev Contract module which acts as a timelocked controller. When set as the\\r\\n/// executor for the DAO execute action, it enforces a timelock on all\\r\\n/// DAO executions initiated by the governor contract. This gives time for users of the\\r\\n/// controlled contract to exit before a potentially dangerous maintenance\\r\\n/// operation is applied.\\r\\ncontract Timelock is ModuleBase, ITimelock {\\r\\n    uint256 internal constant _DONE_TIMESTAMP = uint256(1);\\r\\n\\r\\n    mapping(bytes32 => uint256) private _timestamps;\\r\\n    uint256 public minDelay;\\r\\n    IDAO public dao;\\r\\n\\r\\n    /// @dev Contract might receive/hold ETH as part of the maintenance process.\\r\\n    receive() external payable {}\\r\\n\\r\\n    /// @notice Function for initializing the contract that can only be called once\\r\\n    /// @param _accessControl The address of the access control contract\\r\\n    /// @param _dao The address of the dao contract\\r\\n    /// @param _minDelay init the contract with a given `minDelay`.\\r\\n    function initialize(\\r\\n        address _accessControl,\\r\\n        address _dao,\\r\\n        uint256 _minDelay\\r\\n    ) external initializer {\\r\\n        __initBase(_accessControl, msg.sender, \\\"Timelock Module\\\");\\r\\n        dao = IDAO(_dao);\\r\\n        minDelay = _minDelay;\\r\\n        _registerInterface(type(ITimelock).interfaceId);\\r\\n        emit MinDelayChange(0, minDelay);\\r\\n    }\\r\\n\\r\\n    /// @dev Changes the minimum timelock duration for future operations.\\r\\n    /// Emits a {MinDelayChange} event.\\r\\n    /// Requirements:\\r\\n    /// - the caller must be authorized.\\r\\n    /// @param newDelay Update the delay between queue and execute\\r\\n    function updateDelay(uint256 newDelay) external virtual authorized {\\r\\n        require(\\r\\n            msg.sender == address(this),\\r\\n            \\\"TimelockController: caller must be timelock\\\"\\r\\n        );\\r\\n        emit MinDelayChange(minDelay, newDelay);\\r\\n        minDelay = newDelay;\\r\\n    }\\r\\n\\r\\n    /// @dev Schedule an operation containing a batch of transactions.\\r\\n    /// Emits one {CallScheduled} event per transaction in the batch.\\r\\n    /// - the caller must be authorized.\\r\\n    /// @param targets Contract addresses the DAO will call\\r\\n    /// @param values Ether values to be sent to the target address\\r\\n    /// @param datas Function Sigs w/ Params \\r\\n    /// @param predecessor GovTimelock passes this as 0\\r\\n    /// @param salt Description Hash\\r\\n    /// @param delay current delay set in contract\\r\\n    function scheduleBatch(\\r\\n        address[] calldata targets,\\r\\n        uint256[] calldata values,\\r\\n        bytes[] calldata datas,\\r\\n        bytes32 predecessor,\\r\\n        bytes32 salt,\\r\\n        uint256 delay\\r\\n    ) external virtual authorized {\\r\\n        require(\\r\\n            targets.length == values.length,\\r\\n            \\\"TimelockController: length mismatch\\\"\\r\\n        );\\r\\n        require(\\r\\n            targets.length == datas.length,\\r\\n            \\\"TimelockController: length mismatch\\\"\\r\\n        );\\r\\n\\r\\n        bytes32 id = hashOperationBatch(\\r\\n            targets,\\r\\n            values,\\r\\n            datas,\\r\\n            predecessor,\\r\\n            salt\\r\\n        );\\r\\n        _schedule(id, delay);\\r\\n        for (uint256 i = 0; i < targets.length; ++i) {\\r\\n            emit CallScheduled(\\r\\n                id,\\r\\n                i,\\r\\n                targets[i],\\r\\n                values[i],\\r\\n                datas[i],\\r\\n                predecessor,\\r\\n                delay\\r\\n            );\\r\\n        }\\r\\n    }\\r\\n\\r\\n    /// @dev Cancel an operation.\\r\\n    /// - the caller must be authorized.\\r\\n    /// @param id keccak256 hash of proposal params\\r\\n    function cancel(bytes32 id) external virtual authorized {\\r\\n        require(\\r\\n            isOperationPending(id),\\r\\n            \\\"TimelockController: operation cannot be cancelled\\\"\\r\\n        );\\r\\n        delete _timestamps[id];\\r\\n\\r\\n        emit Cancelled(id);\\r\\n    }\\r\\n\\r\\n    /// @dev Execute an (ready) operation containing a batch of transactions.\\r\\n    /// Emits one {CallExecuted} event per transaction in the batch.\\r\\n    /// - the caller must be authorized\\r\\n    /// @param targets Contract addresses the DAO will call\\r\\n    /// @param values Ether values to be sent to the target address\\r\\n    /// @param datas Function Sigs w/ Params \\r\\n    /// @param predecessor GovTimelock passes this as 0\\r\\n    /// @param salt Description Hash\\r\\n    function executeBatch(\\r\\n        address[] calldata targets,\\r\\n        uint256[] calldata values,\\r\\n        bytes[] calldata datas,\\r\\n        bytes32 predecessor,\\r\\n        bytes32 salt\\r\\n    ) external payable virtual authorized {\\r\\n        require(\\r\\n            targets.length == values.length,\\r\\n            \\\"TimelockController: length mismatch\\\"\\r\\n        );\\r\\n        require(\\r\\n            targets.length == datas.length,\\r\\n            \\\"TimelockController: length mismatch\\\"\\r\\n        );\\r\\n\\r\\n        bytes32 id = hashOperationBatch(\\r\\n            targets,\\r\\n            values,\\r\\n            datas,\\r\\n            predecessor,\\r\\n            salt\\r\\n        );\\r\\n        _beforeCall(id, predecessor);\\r\\n        dao.execute(targets, values, datas);\\r\\n        _afterCall(id);\\r\\n    }\\r\\n\\r\\n    /// @dev Returns whether an id correspond to a registered operation. This\\r\\n    /// includes both Pending, Ready and Done operations.\\r\\n    /// @param id keccak256 hash of proposal params\\r\\n    function isOperation(bytes32 id)\\r\\n        public\\r\\n        view\\r\\n        virtual\\r\\n        returns (bool pending)\\r\\n    {\\r\\n        return getTimestamp(id) > 0;\\r\\n    }\\r\\n\\r\\n    /// @dev Returns whether an operation is pending or not.\\r\\n    /// @param id keccak256 hash of proposal params\\r\\n    function isOperationPending(bytes32 id)\\r\\n        public\\r\\n        view\\r\\n        virtual\\r\\n        returns (bool pending)\\r\\n    {\\r\\n        return getTimestamp(id) > _DONE_TIMESTAMP;\\r\\n    }\\r\\n\\r\\n    /// @dev Returns whether an operation is ready or not.\\r\\n    /// @param id keccak256 hash of proposal params\\r\\n    function isOperationReady(bytes32 id)\\r\\n        public\\r\\n        view\\r\\n        virtual\\r\\n        returns (bool ready)\\r\\n    {\\r\\n        uint256 timestamp = getTimestamp(id);\\r\\n        return timestamp > _DONE_TIMESTAMP && timestamp <= block.timestamp;\\r\\n    }\\r\\n\\r\\n    /// @dev Returns whether an operation is done or not.\\r\\n    /// @param id keccak256 hash of proposal params\\r\\n    function isOperationDone(bytes32 id)\\r\\n        public\\r\\n        view\\r\\n        virtual\\r\\n        returns (bool done)\\r\\n    {\\r\\n        return getTimestamp(id) == _DONE_TIMESTAMP;\\r\\n    }\\r\\n\\r\\n    /// @dev Returns the timestamp at with an operation becomes ready (0 for\\r\\n    /// unset operations, 1 for done operations).\\r\\n    /// @param id keccak256 hash of proposal params\\r\\n    function getTimestamp(bytes32 id)\\r\\n        public\\r\\n        view\\r\\n        virtual\\r\\n        returns (uint256 timestamp)\\r\\n    {\\r\\n        return _timestamps[id];\\r\\n    }\\r\\n\\r\\n    /// @dev Returns the minimum delay for an operation to become valid.\\r\\n    /// This value can be changed by executing an operation that calls `updateDelay`.\\r\\n    function getMinDelay() public view virtual returns (uint256 duration) {\\r\\n        return minDelay;\\r\\n    }\\r\\n\\r\\n    /// @dev Returns the identifier of an operation containing a batch of\\r\\n    /// transactions.\\r\\n    /// @param targets Contract addresses the DAO will call\\r\\n    /// @param values Ether values to be sent to the target address\\r\\n    /// @param datas Function Sigs w/ Params \\r\\n    /// @param predecessor GovTimelock passes this as 0\\r\\n    /// @param salt Description Hash\\r\\n    function hashOperationBatch(\\r\\n        address[] calldata targets,\\r\\n        uint256[] calldata values,\\r\\n        bytes[] calldata datas,\\r\\n        bytes32 predecessor,\\r\\n        bytes32 salt\\r\\n    ) public pure virtual returns (bytes32 hash) {\\r\\n        return keccak256(abi.encode(targets, values, datas, predecessor, salt));\\r\\n    }\\r\\n\\r\\n    /// @dev Schedule an operation that is to becomes valid after a given delay.\\r\\n    /// @param id keccak256 hash of proposal params\\r\\n    /// @param delay current delay set in contract\\r\\n    function _schedule(bytes32 id, uint256 delay) private {\\r\\n        require(\\r\\n            !isOperation(id),\\r\\n            \\\"TimelockController: operation already scheduled\\\"\\r\\n        );\\r\\n        require(\\r\\n            delay >= getMinDelay(),\\r\\n            \\\"TimelockController: insufficient delay\\\"\\r\\n        );\\r\\n        _timestamps[id] = block.timestamp + delay;\\r\\n    }\\r\\n\\r\\n    /// @dev Checks before execution of an operation's calls.\\r\\n    /// @param id keccak256 hash of proposal params\\r\\n    /// @param predecessor GovTimelock passes this as 0\\r\\n    function _beforeCall(bytes32 id, bytes32 predecessor) private view {\\r\\n        require(\\r\\n            isOperationReady(id),\\r\\n            \\\"TimelockController: operation is not ready\\\"\\r\\n        );\\r\\n        require(\\r\\n            predecessor == bytes32(0) || isOperationDone(predecessor),\\r\\n            \\\"TimelockController: missing dependency\\\"\\r\\n        );\\r\\n    }\\r\\n\\r\\n    /// @dev Checks after execution of an operation's calls.\\r\\n    /// @param id keccak256 hash of proposal params\\r\\n    function _afterCall(bytes32 id) private {\\r\\n        require(\\r\\n            isOperationReady(id),\\r\\n            \\\"TimelockController: operation is not ready\\\"\\r\\n        );\\r\\n        _timestamps[id] = _DONE_TIMESTAMP;\\r\\n    }\\r\\n\\r\\n    /// @dev Execute an operation's call.\\r\\n    /// Emits a {CallExecuted} event.\\r\\n    /// @param id keccak256 hash of proposal params\\r\\n    /// @param index current index of call\\r\\n    /// @param target Contract address the DAO will call\\r\\n    /// @param value Ether value to be sent to the target address\\r\\n    /// @param data Function Sig w/ Params \\r\\n    function _call(\\r\\n        bytes32 id,\\r\\n        uint256 index,\\r\\n        address target,\\r\\n        uint256 value,\\r\\n        bytes calldata data\\r\\n    ) private {\\r\\n        (bool success, ) = target.call{value: value}(data);\\r\\n        require(success, \\\"TimelockController: underlying transaction reverted\\\");\\r\\n\\r\\n        emit CallExecuted(id, index, target, value, data);\\r\\n    }\\r\\n\\r\\n    /// @dev This empty reserved space is put in place to allow future versions to add new\\r\\n    /// variables without shifting down storage in the inheritance chain.\\r\\n    /// See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps\\r\\n    uint256[48] private __gap;\\r\\n}\\r\\n\",\"keccak256\":\"0xbea77d914ec3ae3734ca4edcbae3a7e5b527c23f1d56a5e8ce3cc8162237c2d7\",\"license\":\"Unlicense\"},\"contracts/interfaces/ITimelock.sol\":{\"content\":\"//SPDX-License-Identifier: Unlicense\\r\\npragma solidity ^0.8.0;\\r\\n\\r\\ninterface ITimelock {\\r\\n    /// @dev Emitted when a call is scheduled as part of operation `id`.\\r\\n    event CallScheduled(\\r\\n        bytes32 indexed id,\\r\\n        uint256 indexed index,\\r\\n        address target,\\r\\n        uint256 value,\\r\\n        bytes data,\\r\\n        bytes32 predecessor,\\r\\n        uint256 delay\\r\\n    );\\r\\n\\r\\n    /// @dev Emitted when a call is performed as part of operation `id`.\\r\\n    event CallExecuted(\\r\\n        bytes32 indexed id,\\r\\n        uint256 indexed index,\\r\\n        address target,\\r\\n        uint256 value,\\r\\n        bytes data\\r\\n    );\\r\\n\\r\\n    /// @dev Emitted when operation `id` is cancelled.\\r\\n    event Cancelled(bytes32 indexed id);\\r\\n\\r\\n    /// @dev Emitted when the minimum delay for future operations is modified.\\r\\n    event MinDelayChange(uint256 oldDuration, uint256 newDuration);\\r\\n\\r\\n    /// @dev Contract might receive/hold ETH as part of the maintenance process.\\r\\n    receive() external payable;\\r\\n\\r\\n    /// @notice Function for initializing the contract that can only be called once\\r\\n    /// @param _accessControl The address of the access control contract\\r\\n    /// @param _dao The address of the dao contract\\r\\n    /// @param _minDelay init the contract with a given `minDelay`.\\r\\n    function initialize(\\r\\n        address _accessControl,\\r\\n        address _dao,\\r\\n        uint256 _minDelay\\r\\n    ) external;\\r\\n\\r\\n    /// @dev Changes the minimum timelock duration for future operations.\\r\\n    /// Emits a {MinDelayChange} event.\\r\\n    /// Requirements:\\r\\n    /// - the caller must be authorized.\\r\\n    /// @param newDelay Update the delay between queue and execute\\r\\n    function updateDelay(uint256 newDelay) external;\\r\\n\\r\\n    /// @dev Schedule an operation containing a batch of transactions.\\r\\n    /// Emits one {CallScheduled} event per transaction in the batch.\\r\\n    /// - the caller must be authorized.\\r\\n    /// @param targets Contract addresses the DAO will call\\r\\n    /// @param values Ether values to be sent to the target address\\r\\n    /// @param datas Function Sigs w/ Params \\r\\n    /// @param predecessor GovTimelock passes this as 0\\r\\n    /// @param salt Description Hash\\r\\n    /// @param delay current delay set in contract\\r\\n    function scheduleBatch(\\r\\n        address[] calldata targets,\\r\\n        uint256[] calldata values,\\r\\n        bytes[] calldata datas,\\r\\n        bytes32 predecessor,\\r\\n        bytes32 salt,\\r\\n        uint256 delay\\r\\n    ) external;\\r\\n\\r\\n    /// @dev Cancel an operation.\\r\\n    /// - the caller must be authorized.\\r\\n    /// @param id keccak256 hash of proposal params\\r\\n    function cancel(bytes32 id) external;\\r\\n\\r\\n    /// @dev Execute an (ready) operation containing a batch of transactions.\\r\\n    /// Emits one {CallExecuted} event per transaction in the batch.\\r\\n    /// - the caller must be authorized\\r\\n    /// @param targets Contract addresses the DAO will call\\r\\n    /// @param values Ether values to be sent to the target address\\r\\n    /// @param datas Function Sigs w/ Params \\r\\n    /// @param predecessor GovTimelock passes this as 0\\r\\n    /// @param salt Description Hash\\r\\n    function executeBatch(\\r\\n        address[] calldata targets,\\r\\n        uint256[] calldata values,\\r\\n        bytes[] calldata datas,\\r\\n        bytes32 predecessor,\\r\\n        bytes32 salt\\r\\n    ) external payable;\\r\\n\\r\\n    /// @dev Returns whether an id correspond to a registered operation. This\\r\\n    /// includes both Pending, Ready and Done operations.\\r\\n    /// @param id keccak256 hash of proposal params\\r\\n    function isOperation(bytes32 id) external view returns (bool pending);\\r\\n\\r\\n    /// @dev Returns whether an operation is pending or not.\\r\\n    /// @param id keccak256 hash of proposal params\\r\\n    function isOperationPending(bytes32 id)\\r\\n        external\\r\\n        view\\r\\n        returns (bool pending);\\r\\n\\r\\n    /// @dev Returns whether an operation is ready or not.\\r\\n    /// @param id keccak256 hash of proposal params\\r\\n    function isOperationReady(bytes32 id) external view returns (bool ready);\\r\\n\\r\\n    /// @dev Returns whether an operation is done or not.\\r\\n    /// @param id keccak256 hash of proposal params\\r\\n    function isOperationDone(bytes32 id) external view returns (bool done);\\r\\n\\r\\n    /// @dev Returns the timestamp at with an operation becomes ready (0 for\\r\\n    /// unset operations, 1 for done operations).\\r\\n    /// @param id keccak256 hash of proposal params\\r\\n    function getTimestamp(bytes32 id) external view returns (uint256 timestamp);\\r\\n\\r\\n    /// @dev Returns the minimum delay for an operation to become valid.\\r\\n    /// This value can be changed by executing an operation that calls `updateDelay`.\\r\\n    function getMinDelay() external view returns (uint256 duration);\\r\\n\\r\\n    /// @dev Returns the identifier of an operation containing a batch of\\r\\n    /// transactions.\\r\\n    /// @param targets Contract addresses the DAO will call\\r\\n    /// @param values Ether values to be sent to the target address\\r\\n    /// @param datas Function Sigs w/ Params \\r\\n    /// @param predecessor GovTimelock passes this as 0\\r\\n    /// @param salt Description Hash\\r\\n    function hashOperationBatch(\\r\\n        address[] calldata targets,\\r\\n        uint256[] calldata values,\\r\\n        bytes[] calldata datas,\\r\\n        bytes32 predecessor,\\r\\n        bytes32 salt\\r\\n    ) external pure returns (bytes32 hash);\\r\\n}\\r\\n\",\"keccak256\":\"0x6c2959e7bea617b3bf2f64e1c4998940cf028a8ea4265e6c465c722a291978b7\",\"license\":\"Unlicense\"}},\"version\":1}",
+  "bytecode": "0x60a06040523060805234801561001457600080fd5b50608051611fb861004c60003960008181610678015281816106b80152818161075701528181610797015261082a0152611fb86000f3fe60806040526004361061012e5760003560e01c806352d1902d116100ab578063b1c5f4271161006f578063b1c5f42714610351578063c4d252f514610371578063c63c4e9b14610391578063d45c4435146103a7578063e38335e5146103d4578063f27a0c92146103e757600080fd5b806352d1902d146102ae578063584b153e146102d157806364d62353146102f15780638991255b146103115780638f2a0bb01461033157600080fd5b80632ab0f529116100f25780632ab0f5291461020b57806331d507501461023b5780633659cfe61461025b5780634162169f1461027b5780634f1ef2861461029b57600080fd5b806301ffc9a71461013a57806306fdde031461016f57806313007d551461019157806313bc9f20146101c95780631794bb3c146101e957600080fd5b3661013557005b600080fd5b34801561014657600080fd5b5061015a6101553660046116c7565b6103fc565b60405190151581526020015b60405180910390f35b34801561017b57600080fd5b5061018461043c565b604051610166919061171d565b34801561019d57600080fd5b506066546101b1906001600160a01b031681565b6040516001600160a01b039091168152602001610166565b3480156101d557600080fd5b5061015a6101e4366004611750565b6104ce565b3480156101f557600080fd5b50610209610204366004611785565b6104f4565b005b34801561021757600080fd5b5061015a610226366004611750565b60009081526069602052604090205460011490565b34801561024757600080fd5b5061015a610256366004611750565b610655565b34801561026757600080fd5b506102096102763660046117c1565b61066e565b34801561028757600080fd5b50606b546101b1906001600160a01b031681565b6102096102a93660046117f2565b61074d565b3480156102ba57600080fd5b506102c361081d565b604051908152602001610166565b3480156102dd57600080fd5b5061015a6102ec366004611750565b6108d0565b3480156102fd57600080fd5b5061020961030c366004611750565b6108e7565b34801561031d57600080fd5b506067546101b1906001600160a01b031681565b34801561033d57600080fd5b5061020961034c366004611900565b610a2c565b34801561035d57600080fd5b506102c361036c3660046119b2565b610bf4565b34801561037d57600080fd5b5061020961038c366004611750565b610c39565b34801561039d57600080fd5b506102c3606a5481565b3480156103b357600080fd5b506102c36103c2366004611750565b60009081526069602052604090205490565b6102096103e23660046119b2565b610d84565b3480156103f357600080fd5b50606a546102c3565b60006301ffc9a760e01b6001600160e01b03198316148061043657506001600160e01b0319821660009081526065602052604090205460ff165b92915050565b60606068805461044b90611a5b565b80601f016020809104026020016040519081016040528092919081815260200182805461047790611a5b565b80156104c45780601f10610499576101008083540402835291602001916104c4565b820191906000526020600020905b8154815290600101906020018083116104a757829003601f168201915b5050505050905090565b6000818152606960205260408120546001811180156104ed5750428111155b9392505050565b600054610100900460ff1661050f5760005460ff1615610513565b303b155b61057b5760405162461bcd60e51b815260206004820152602e60248201527f496e697469616c697a61626c653a20636f6e747261637420697320616c72656160448201526d191e481a5b9a5d1a585b1a5e995960921b60648201526084015b60405180910390fd5b600054610100900460ff1615801561059d576000805461ffff19166101011790555b6105cf84336040518060400160405280600f81526020016e54696d656c6f636b204d6f64756c6560881b815250610f01565b606b80546001600160a01b0319166001600160a01b038516179055606a8290556105ff630389060560e31b610f89565b606a54604080516000815260208101929092527f11c24f4ead16507c69ac467fbd5e4eed5fb5c699626d2cc6d66421df253886d5910160405180910390a1801561064f576000805461ff00191690555b50505050565b60008181526069602052604081205481905b1192915050565b6001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001630036106b65760405162461bcd60e51b815260040161057290611a95565b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03166106ff600080516020611f3c833981519152546001600160a01b031690565b6001600160a01b0316146107255760405162461bcd60e51b815260040161057290611ae1565b61072e81611008565b6040805160008082526020820190925261074a918391906110a9565b50565b6001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001630036107955760405162461bcd60e51b815260040161057290611a95565b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03166107de600080516020611f3c833981519152546001600160a01b031690565b6001600160a01b0316146108045760405162461bcd60e51b815260040161057290611ae1565b61080d82611008565b610819828260016110a9565b5050565b6000306001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016146108bd5760405162461bcd60e51b815260206004820152603860248201527f555550535570677261646561626c653a206d757374206e6f742062652063616c60448201527f6c6564207468726f7567682064656c656761746563616c6c00000000000000006064820152608401610572565b50600080516020611f3c83398151915290565b600081815260696020526040812054600190610667565b6066546040516001623b410b60e21b031981526001600160a01b039091169063ff12fbd49061092a90339030906001600160e01b03196000351690600401611b2d565b602060405180830381865afa158015610947573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061096b9190611b5a565b6109885760405163ea8e4eb560e01b815260040160405180910390fd5b3330146109eb5760405162461bcd60e51b815260206004820152602b60248201527f54696d656c6f636b436f6e74726f6c6c65723a2063616c6c6572206d7573742060448201526a62652074696d656c6f636b60a81b6064820152608401610572565b606a5460408051918252602082018390527f11c24f4ead16507c69ac467fbd5e4eed5fb5c699626d2cc6d66421df253886d5910160405180910390a1606a55565b6066546040516001623b410b60e21b031981526001600160a01b039091169063ff12fbd490610a6f90339030906001600160e01b03196000351690600401611b2d565b602060405180830381865afa158015610a8c573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610ab09190611b5a565b610acd5760405163ea8e4eb560e01b815260040160405180910390fd5b878614610aec5760405162461bcd60e51b815260040161057290611b7c565b878414610b0b5760405162461bcd60e51b815260040161057290611b7c565b6000610b1d8a8a8a8a8a8a8a8a610bf4565b9050610b298183611214565b60005b89811015610be75780827f4cf4410cc57040e44862ef0f45f3dd5a5e02db8eb8add648d4b0e236f1d07dca8d8d85818110610b6957610b69611bbf565b9050602002016020810190610b7e91906117c1565b8c8c86818110610b9057610b90611bbf565b905060200201358b8b87818110610ba957610ba9611bbf565b9050602002810190610bbb9190611bd5565b8b8a604051610bcf96959493929190611c45565b60405180910390a3610be081611c98565b9050610b2c565b5050505050505050505050565b60008888888888888888604051602001610c15989796959493929190611dbc565b60405160208183030381529060405280519060200120905098975050505050505050565b6066546040516001623b410b60e21b031981526001600160a01b039091169063ff12fbd490610c7c90339030906001600160e01b03196000351690600401611b2d565b602060405180830381865afa158015610c99573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610cbd9190611b5a565b610cda5760405163ea8e4eb560e01b815260040160405180910390fd5b610ce3816108d0565b610d495760405162461bcd60e51b815260206004820152603160248201527f54696d656c6f636b436f6e74726f6c6c65723a206f7065726174696f6e2063616044820152701b9b9bdd0818994818d85b98d95b1b1959607a1b6064820152608401610572565b6000818152606960205260408082208290555182917fbaa1eb22f2a492ba1a5fea61b8df4d27c6c8b5f3971e63bb58fa14ff72eedb7091a250565b6066546040516001623b410b60e21b031981526001600160a01b039091169063ff12fbd490610dc790339030906001600160e01b03196000351690600401611b2d565b602060405180830381865afa158015610de4573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610e089190611b5a565b610e255760405163ea8e4eb560e01b815260040160405180910390fd5b868514610e445760405162461bcd60e51b815260040161057290611b7c565b868314610e635760405162461bcd60e51b815260040161057290611b7c565b6000610e758989898989898989610bf4565b9050610e818184611303565b606b5460405163a516a5bf60e01b81526001600160a01b039091169063a516a5bf90610ebb908c908c908c908c908c908c90600401611e10565b600060405180830381600087803b158015610ed557600080fd5b505af1158015610ee9573d6000803e3d6000fd5b50505050610ef68161139e565b505050505050505050565b600054610100900460ff16610f285760405162461bcd60e51b815260040161057290611e59565b606680546001600160a01b038086166001600160a01b03199283161790925560678054928516929091169190911790558051610f6b90606890602084019061162e565b50610f746113d7565b610f84630afed1ab60e11b610f89565b505050565b6001600160e01b03198082169003610fe35760405162461bcd60e51b815260206004820152601c60248201527f4552433136353a20696e76616c696420696e74657266616365206964000000006044820152606401610572565b6001600160e01b0319166000908152606560205260409020805460ff19166001179055565b6066546040516001623b410b60e21b031981526001600160a01b039091169063ff12fbd49061104b90339030906001600160e01b03196000351690600401611b2d565b602060405180830381865afa158015611068573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061108c9190611b5a565b61074a5760405163ea8e4eb560e01b815260040160405180910390fd5b7f4910fdfa16fed3260ed0e7147f7cc6da11a60208b5b9406d12a635614ffd91435460ff16156110dc57610f8483611400565b826001600160a01b03166352d1902d6040518163ffffffff1660e01b8152600401602060405180830381865afa925050508015611136575060408051601f3d908101601f1916820190925261113391810190611ea4565b60015b6111995760405162461bcd60e51b815260206004820152602e60248201527f45524331393637557067726164653a206e657720696d706c656d656e7461746960448201526d6f6e206973206e6f74205555505360901b6064820152608401610572565b600080516020611f3c83398151915281146112085760405162461bcd60e51b815260206004820152602960248201527f45524331393637557067726164653a20756e737570706f727465642070726f786044820152681a58589b195555525160ba1b6064820152608401610572565b50610f8483838361149c565b61121d82610655565b156112825760405162461bcd60e51b815260206004820152602f60248201527f54696d656c6f636b436f6e74726f6c6c65723a206f7065726174696f6e20616c60448201526e1c9958591e481cd8da19591d5b1959608a1b6064820152608401610572565b606a548110156112e35760405162461bcd60e51b815260206004820152602660248201527f54696d656c6f636b436f6e74726f6c6c65723a20696e73756666696369656e746044820152652064656c617960d01b6064820152608401610572565b6112ed8142611ebd565b6000928352606960205260409092209190915550565b61130c826104ce565b6113285760405162461bcd60e51b815260040161057290611ed5565b80158061134357506000818152606960205260409020546001145b6108195760405162461bcd60e51b815260206004820152602660248201527f54696d656c6f636b436f6e74726f6c6c65723a206d697373696e6720646570656044820152656e64656e637960d01b6064820152608401610572565b6113a7816104ce565b6113c35760405162461bcd60e51b815260040161057290611ed5565b600090815260696020526040902060019055565b600054610100900460ff166113fe5760405162461bcd60e51b815260040161057290611e59565b565b6001600160a01b0381163b61146d5760405162461bcd60e51b815260206004820152602d60248201527f455243313936373a206e657720696d706c656d656e746174696f6e206973206e60448201526c1bdd08184818dbdb9d1c9858dd609a1b6064820152608401610572565b600080516020611f3c83398151915280546001600160a01b0319166001600160a01b0392909216919091179055565b6114a5836114c1565b6000825111806114b25750805b15610f845761064f8383611501565b6114ca81611400565b6040516001600160a01b038216907fbc7cd75a20ee27fd9adebab32041f755214dbc6bffa90cc0225b39da2e5c2d3b90600090a250565b60606001600160a01b0383163b6115695760405162461bcd60e51b815260206004820152602660248201527f416464726573733a2064656c65676174652063616c6c20746f206e6f6e2d636f6044820152651b9d1c9858dd60d21b6064820152608401610572565b600080846001600160a01b0316846040516115849190611f1f565b600060405180830381855af49150503d80600081146115bf576040519150601f19603f3d011682016040523d82523d6000602084013e6115c4565b606091505b50915091506115ec8282604051806060016040528060278152602001611f5c602791396115f5565b95945050505050565b606083156116045750816104ed565b8251156116145782518084602001fd5b8160405162461bcd60e51b8152600401610572919061171d565b82805461163a90611a5b565b90600052602060002090601f01602090048101928261165c57600085556116a2565b82601f1061167557805160ff19168380011785556116a2565b828001600101855582156116a2579182015b828111156116a2578251825591602001919060010190611687565b506116ae9291506116b2565b5090565b5b808211156116ae57600081556001016116b3565b6000602082840312156116d957600080fd5b81356001600160e01b0319811681146104ed57600080fd5b60005b8381101561170c5781810151838201526020016116f4565b8381111561064f5750506000910152565b602081526000825180602084015261173c8160408501602087016116f1565b601f01601f19169190910160400192915050565b60006020828403121561176257600080fd5b5035919050565b80356001600160a01b038116811461178057600080fd5b919050565b60008060006060848603121561179a57600080fd5b6117a384611769565b92506117b160208501611769565b9150604084013590509250925092565b6000602082840312156117d357600080fd5b6104ed82611769565b634e487b7160e01b600052604160045260246000fd5b6000806040838503121561180557600080fd5b61180e83611769565b9150602083013567ffffffffffffffff8082111561182b57600080fd5b818501915085601f83011261183f57600080fd5b813581811115611851576118516117dc565b604051601f8201601f19908116603f01168101908382118183101715611879576118796117dc565b8160405282815288602084870101111561189257600080fd5b8260208601602083013760006020848301015280955050505050509250929050565b60008083601f8401126118c657600080fd5b50813567ffffffffffffffff8111156118de57600080fd5b6020830191508360208260051b85010111156118f957600080fd5b9250929050565b600080600080600080600080600060c08a8c03121561191e57600080fd5b893567ffffffffffffffff8082111561193657600080fd5b6119428d838e016118b4565b909b50995060208c013591508082111561195b57600080fd5b6119678d838e016118b4565b909950975060408c013591508082111561198057600080fd5b5061198d8c828d016118b4565b9a9d999c50979a969997986060880135976080810135975060a0013595509350505050565b60008060008060008060008060a0898b0312156119ce57600080fd5b883567ffffffffffffffff808211156119e657600080fd5b6119f28c838d016118b4565b909a50985060208b0135915080821115611a0b57600080fd5b611a178c838d016118b4565b909850965060408b0135915080821115611a3057600080fd5b50611a3d8b828c016118b4565b999c989b509699959896976060870135966080013595509350505050565b600181811c90821680611a6f57607f821691505b602082108103611a8f57634e487b7160e01b600052602260045260246000fd5b50919050565b6020808252602c908201527f46756e6374696f6e206d7573742062652063616c6c6564207468726f7567682060408201526b19195b1959d85d1958d85b1b60a21b606082015260800190565b6020808252602c908201527f46756e6374696f6e206d7573742062652063616c6c6564207468726f7567682060408201526b6163746976652070726f787960a01b606082015260800190565b6001600160a01b0393841681529190921660208201526001600160e01b0319909116604082015260600190565b600060208284031215611b6c57600080fd5b815180151581146104ed57600080fd5b60208082526023908201527f54696d656c6f636b436f6e74726f6c6c65723a206c656e677468206d69736d616040820152620e8c6d60eb1b606082015260800190565b634e487b7160e01b600052603260045260246000fd5b6000808335601e19843603018112611bec57600080fd5b83018035915067ffffffffffffffff821115611c0757600080fd5b6020019150368190038213156118f957600080fd5b81835281816020850137506000828201602090810191909152601f909101601f19169091010190565b60018060a01b038716815285602082015260a060408201526000611c6d60a083018688611c1c565b60608301949094525060800152949350505050565b634e487b7160e01b600052601160045260246000fd5b600060018201611caa57611caa611c82565b5060010190565b8183526000602080850194508260005b85811015611ced576001600160a01b03611cda83611769565b1687529582019590820190600101611cc1565b509495945050505050565b81835260006001600160fb1b03831115611d1157600080fd5b8260051b8083602087013760009401602001938452509192915050565b818352600060208085019450848460051b86018460005b87811015611daf5783830389528135601e19883603018112611d6657600080fd5b8701803567ffffffffffffffff811115611d7f57600080fd5b803603891315611d8e57600080fd5b611d9b8582898501611c1c565b9a87019a9450505090840190600101611d45565b5090979650505050505050565b60a081526000611dd060a083018a8c611cb1565b8281036020840152611de381898b611cf8565b90508281036040840152611df8818789611d2e565b60608401959095525050608001529695505050505050565b606081526000611e2460608301888a611cb1565b8281036020840152611e37818789611cf8565b90508281036040840152611e4c818587611d2e565b9998505050505050505050565b6020808252602b908201527f496e697469616c697a61626c653a20636f6e7472616374206973206e6f74206960408201526a6e697469616c697a696e6760a81b606082015260800190565b600060208284031215611eb657600080fd5b5051919050565b60008219821115611ed057611ed0611c82565b500190565b6020808252602a908201527f54696d656c6f636b436f6e74726f6c6c65723a206f7065726174696f6e206973604082015269206e6f7420726561647960b01b606082015260800190565b60008251611f318184602087016116f1565b919091019291505056fe360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc416464726573733a206c6f772d6c6576656c2064656c65676174652063616c6c206661696c6564a2646970667358221220b2aac095414e6afa92fb7089fa24a563e372d5e1732262dd2dce99a07ee0324b64736f6c634300080d0033",
+  "deployedBytecode": "0x60806040526004361061012e5760003560e01c806352d1902d116100ab578063b1c5f4271161006f578063b1c5f42714610351578063c4d252f514610371578063c63c4e9b14610391578063d45c4435146103a7578063e38335e5146103d4578063f27a0c92146103e757600080fd5b806352d1902d146102ae578063584b153e146102d157806364d62353146102f15780638991255b146103115780638f2a0bb01461033157600080fd5b80632ab0f529116100f25780632ab0f5291461020b57806331d507501461023b5780633659cfe61461025b5780634162169f1461027b5780634f1ef2861461029b57600080fd5b806301ffc9a71461013a57806306fdde031461016f57806313007d551461019157806313bc9f20146101c95780631794bb3c146101e957600080fd5b3661013557005b600080fd5b34801561014657600080fd5b5061015a6101553660046116c7565b6103fc565b60405190151581526020015b60405180910390f35b34801561017b57600080fd5b5061018461043c565b604051610166919061171d565b34801561019d57600080fd5b506066546101b1906001600160a01b031681565b6040516001600160a01b039091168152602001610166565b3480156101d557600080fd5b5061015a6101e4366004611750565b6104ce565b3480156101f557600080fd5b50610209610204366004611785565b6104f4565b005b34801561021757600080fd5b5061015a610226366004611750565b60009081526069602052604090205460011490565b34801561024757600080fd5b5061015a610256366004611750565b610655565b34801561026757600080fd5b506102096102763660046117c1565b61066e565b34801561028757600080fd5b50606b546101b1906001600160a01b031681565b6102096102a93660046117f2565b61074d565b3480156102ba57600080fd5b506102c361081d565b604051908152602001610166565b3480156102dd57600080fd5b5061015a6102ec366004611750565b6108d0565b3480156102fd57600080fd5b5061020961030c366004611750565b6108e7565b34801561031d57600080fd5b506067546101b1906001600160a01b031681565b34801561033d57600080fd5b5061020961034c366004611900565b610a2c565b34801561035d57600080fd5b506102c361036c3660046119b2565b610bf4565b34801561037d57600080fd5b5061020961038c366004611750565b610c39565b34801561039d57600080fd5b506102c3606a5481565b3480156103b357600080fd5b506102c36103c2366004611750565b60009081526069602052604090205490565b6102096103e23660046119b2565b610d84565b3480156103f357600080fd5b50606a546102c3565b60006301ffc9a760e01b6001600160e01b03198316148061043657506001600160e01b0319821660009081526065602052604090205460ff165b92915050565b60606068805461044b90611a5b565b80601f016020809104026020016040519081016040528092919081815260200182805461047790611a5b565b80156104c45780601f10610499576101008083540402835291602001916104c4565b820191906000526020600020905b8154815290600101906020018083116104a757829003601f168201915b5050505050905090565b6000818152606960205260408120546001811180156104ed5750428111155b9392505050565b600054610100900460ff1661050f5760005460ff1615610513565b303b155b61057b5760405162461bcd60e51b815260206004820152602e60248201527f496e697469616c697a61626c653a20636f6e747261637420697320616c72656160448201526d191e481a5b9a5d1a585b1a5e995960921b60648201526084015b60405180910390fd5b600054610100900460ff1615801561059d576000805461ffff19166101011790555b6105cf84336040518060400160405280600f81526020016e54696d656c6f636b204d6f64756c6560881b815250610f01565b606b80546001600160a01b0319166001600160a01b038516179055606a8290556105ff630389060560e31b610f89565b606a54604080516000815260208101929092527f11c24f4ead16507c69ac467fbd5e4eed5fb5c699626d2cc6d66421df253886d5910160405180910390a1801561064f576000805461ff00191690555b50505050565b60008181526069602052604081205481905b1192915050565b6001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001630036106b65760405162461bcd60e51b815260040161057290611a95565b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03166106ff600080516020611f3c833981519152546001600160a01b031690565b6001600160a01b0316146107255760405162461bcd60e51b815260040161057290611ae1565b61072e81611008565b6040805160008082526020820190925261074a918391906110a9565b50565b6001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001630036107955760405162461bcd60e51b815260040161057290611a95565b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03166107de600080516020611f3c833981519152546001600160a01b031690565b6001600160a01b0316146108045760405162461bcd60e51b815260040161057290611ae1565b61080d82611008565b610819828260016110a9565b5050565b6000306001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016146108bd5760405162461bcd60e51b815260206004820152603860248201527f555550535570677261646561626c653a206d757374206e6f742062652063616c60448201527f6c6564207468726f7567682064656c656761746563616c6c00000000000000006064820152608401610572565b50600080516020611f3c83398151915290565b600081815260696020526040812054600190610667565b6066546040516001623b410b60e21b031981526001600160a01b039091169063ff12fbd49061092a90339030906001600160e01b03196000351690600401611b2d565b602060405180830381865afa158015610947573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061096b9190611b5a565b6109885760405163ea8e4eb560e01b815260040160405180910390fd5b3330146109eb5760405162461bcd60e51b815260206004820152602b60248201527f54696d656c6f636b436f6e74726f6c6c65723a2063616c6c6572206d7573742060448201526a62652074696d656c6f636b60a81b6064820152608401610572565b606a5460408051918252602082018390527f11c24f4ead16507c69ac467fbd5e4eed5fb5c699626d2cc6d66421df253886d5910160405180910390a1606a55565b6066546040516001623b410b60e21b031981526001600160a01b039091169063ff12fbd490610a6f90339030906001600160e01b03196000351690600401611b2d565b602060405180830381865afa158015610a8c573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610ab09190611b5a565b610acd5760405163ea8e4eb560e01b815260040160405180910390fd5b878614610aec5760405162461bcd60e51b815260040161057290611b7c565b878414610b0b5760405162461bcd60e51b815260040161057290611b7c565b6000610b1d8a8a8a8a8a8a8a8a610bf4565b9050610b298183611214565b60005b89811015610be75780827f4cf4410cc57040e44862ef0f45f3dd5a5e02db8eb8add648d4b0e236f1d07dca8d8d85818110610b6957610b69611bbf565b9050602002016020810190610b7e91906117c1565b8c8c86818110610b9057610b90611bbf565b905060200201358b8b87818110610ba957610ba9611bbf565b9050602002810190610bbb9190611bd5565b8b8a604051610bcf96959493929190611c45565b60405180910390a3610be081611c98565b9050610b2c565b5050505050505050505050565b60008888888888888888604051602001610c15989796959493929190611dbc565b60405160208183030381529060405280519060200120905098975050505050505050565b6066546040516001623b410b60e21b031981526001600160a01b039091169063ff12fbd490610c7c90339030906001600160e01b03196000351690600401611b2d565b602060405180830381865afa158015610c99573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610cbd9190611b5a565b610cda5760405163ea8e4eb560e01b815260040160405180910390fd5b610ce3816108d0565b610d495760405162461bcd60e51b815260206004820152603160248201527f54696d656c6f636b436f6e74726f6c6c65723a206f7065726174696f6e2063616044820152701b9b9bdd0818994818d85b98d95b1b1959607a1b6064820152608401610572565b6000818152606960205260408082208290555182917fbaa1eb22f2a492ba1a5fea61b8df4d27c6c8b5f3971e63bb58fa14ff72eedb7091a250565b6066546040516001623b410b60e21b031981526001600160a01b039091169063ff12fbd490610dc790339030906001600160e01b03196000351690600401611b2d565b602060405180830381865afa158015610de4573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610e089190611b5a565b610e255760405163ea8e4eb560e01b815260040160405180910390fd5b868514610e445760405162461bcd60e51b815260040161057290611b7c565b868314610e635760405162461bcd60e51b815260040161057290611b7c565b6000610e758989898989898989610bf4565b9050610e818184611303565b606b5460405163a516a5bf60e01b81526001600160a01b039091169063a516a5bf90610ebb908c908c908c908c908c908c90600401611e10565b600060405180830381600087803b158015610ed557600080fd5b505af1158015610ee9573d6000803e3d6000fd5b50505050610ef68161139e565b505050505050505050565b600054610100900460ff16610f285760405162461bcd60e51b815260040161057290611e59565b606680546001600160a01b038086166001600160a01b03199283161790925560678054928516929091169190911790558051610f6b90606890602084019061162e565b50610f746113d7565b610f84630afed1ab60e11b610f89565b505050565b6001600160e01b03198082169003610fe35760405162461bcd60e51b815260206004820152601c60248201527f4552433136353a20696e76616c696420696e74657266616365206964000000006044820152606401610572565b6001600160e01b0319166000908152606560205260409020805460ff19166001179055565b6066546040516001623b410b60e21b031981526001600160a01b039091169063ff12fbd49061104b90339030906001600160e01b03196000351690600401611b2d565b602060405180830381865afa158015611068573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061108c9190611b5a565b61074a5760405163ea8e4eb560e01b815260040160405180910390fd5b7f4910fdfa16fed3260ed0e7147f7cc6da11a60208b5b9406d12a635614ffd91435460ff16156110dc57610f8483611400565b826001600160a01b03166352d1902d6040518163ffffffff1660e01b8152600401602060405180830381865afa925050508015611136575060408051601f3d908101601f1916820190925261113391810190611ea4565b60015b6111995760405162461bcd60e51b815260206004820152602e60248201527f45524331393637557067726164653a206e657720696d706c656d656e7461746960448201526d6f6e206973206e6f74205555505360901b6064820152608401610572565b600080516020611f3c83398151915281146112085760405162461bcd60e51b815260206004820152602960248201527f45524331393637557067726164653a20756e737570706f727465642070726f786044820152681a58589b195555525160ba1b6064820152608401610572565b50610f8483838361149c565b61121d82610655565b156112825760405162461bcd60e51b815260206004820152602f60248201527f54696d656c6f636b436f6e74726f6c6c65723a206f7065726174696f6e20616c60448201526e1c9958591e481cd8da19591d5b1959608a1b6064820152608401610572565b606a548110156112e35760405162461bcd60e51b815260206004820152602660248201527f54696d656c6f636b436f6e74726f6c6c65723a20696e73756666696369656e746044820152652064656c617960d01b6064820152608401610572565b6112ed8142611ebd565b6000928352606960205260409092209190915550565b61130c826104ce565b6113285760405162461bcd60e51b815260040161057290611ed5565b80158061134357506000818152606960205260409020546001145b6108195760405162461bcd60e51b815260206004820152602660248201527f54696d656c6f636b436f6e74726f6c6c65723a206d697373696e6720646570656044820152656e64656e637960d01b6064820152608401610572565b6113a7816104ce565b6113c35760405162461bcd60e51b815260040161057290611ed5565b600090815260696020526040902060019055565b600054610100900460ff166113fe5760405162461bcd60e51b815260040161057290611e59565b565b6001600160a01b0381163b61146d5760405162461bcd60e51b815260206004820152602d60248201527f455243313936373a206e657720696d706c656d656e746174696f6e206973206e60448201526c1bdd08184818dbdb9d1c9858dd609a1b6064820152608401610572565b600080516020611f3c83398151915280546001600160a01b0319166001600160a01b0392909216919091179055565b6114a5836114c1565b6000825111806114b25750805b15610f845761064f8383611501565b6114ca81611400565b6040516001600160a01b038216907fbc7cd75a20ee27fd9adebab32041f755214dbc6bffa90cc0225b39da2e5c2d3b90600090a250565b60606001600160a01b0383163b6115695760405162461bcd60e51b815260206004820152602660248201527f416464726573733a2064656c65676174652063616c6c20746f206e6f6e2d636f6044820152651b9d1c9858dd60d21b6064820152608401610572565b600080846001600160a01b0316846040516115849190611f1f565b600060405180830381855af49150503d80600081146115bf576040519150601f19603f3d011682016040523d82523d6000602084013e6115c4565b606091505b50915091506115ec8282604051806060016040528060278152602001611f5c602791396115f5565b95945050505050565b606083156116045750816104ed565b8251156116145782518084602001fd5b8160405162461bcd60e51b8152600401610572919061171d565b82805461163a90611a5b565b90600052602060002090601f01602090048101928261165c57600085556116a2565b82601f1061167557805160ff19168380011785556116a2565b828001600101855582156116a2579182015b828111156116a2578251825591602001919060010190611687565b506116ae9291506116b2565b5090565b5b808211156116ae57600081556001016116b3565b6000602082840312156116d957600080fd5b81356001600160e01b0319811681146104ed57600080fd5b60005b8381101561170c5781810151838201526020016116f4565b8381111561064f5750506000910152565b602081526000825180602084015261173c8160408501602087016116f1565b601f01601f19169190910160400192915050565b60006020828403121561176257600080fd5b5035919050565b80356001600160a01b038116811461178057600080fd5b919050565b60008060006060848603121561179a57600080fd5b6117a384611769565b92506117b160208501611769565b9150604084013590509250925092565b6000602082840312156117d357600080fd5b6104ed82611769565b634e487b7160e01b600052604160045260246000fd5b6000806040838503121561180557600080fd5b61180e83611769565b9150602083013567ffffffffffffffff8082111561182b57600080fd5b818501915085601f83011261183f57600080fd5b813581811115611851576118516117dc565b604051601f8201601f19908116603f01168101908382118183101715611879576118796117dc565b8160405282815288602084870101111561189257600080fd5b8260208601602083013760006020848301015280955050505050509250929050565b60008083601f8401126118c657600080fd5b50813567ffffffffffffffff8111156118de57600080fd5b6020830191508360208260051b85010111156118f957600080fd5b9250929050565b600080600080600080600080600060c08a8c03121561191e57600080fd5b893567ffffffffffffffff8082111561193657600080fd5b6119428d838e016118b4565b909b50995060208c013591508082111561195b57600080fd5b6119678d838e016118b4565b909950975060408c013591508082111561198057600080fd5b5061198d8c828d016118b4565b9a9d999c50979a969997986060880135976080810135975060a0013595509350505050565b60008060008060008060008060a0898b0312156119ce57600080fd5b883567ffffffffffffffff808211156119e657600080fd5b6119f28c838d016118b4565b909a50985060208b0135915080821115611a0b57600080fd5b611a178c838d016118b4565b909850965060408b0135915080821115611a3057600080fd5b50611a3d8b828c016118b4565b999c989b509699959896976060870135966080013595509350505050565b600181811c90821680611a6f57607f821691505b602082108103611a8f57634e487b7160e01b600052602260045260246000fd5b50919050565b6020808252602c908201527f46756e6374696f6e206d7573742062652063616c6c6564207468726f7567682060408201526b19195b1959d85d1958d85b1b60a21b606082015260800190565b6020808252602c908201527f46756e6374696f6e206d7573742062652063616c6c6564207468726f7567682060408201526b6163746976652070726f787960a01b606082015260800190565b6001600160a01b0393841681529190921660208201526001600160e01b0319909116604082015260600190565b600060208284031215611b6c57600080fd5b815180151581146104ed57600080fd5b60208082526023908201527f54696d656c6f636b436f6e74726f6c6c65723a206c656e677468206d69736d616040820152620e8c6d60eb1b606082015260800190565b634e487b7160e01b600052603260045260246000fd5b6000808335601e19843603018112611bec57600080fd5b83018035915067ffffffffffffffff821115611c0757600080fd5b6020019150368190038213156118f957600080fd5b81835281816020850137506000828201602090810191909152601f909101601f19169091010190565b60018060a01b038716815285602082015260a060408201526000611c6d60a083018688611c1c565b60608301949094525060800152949350505050565b634e487b7160e01b600052601160045260246000fd5b600060018201611caa57611caa611c82565b5060010190565b8183526000602080850194508260005b85811015611ced576001600160a01b03611cda83611769565b1687529582019590820190600101611cc1565b509495945050505050565b81835260006001600160fb1b03831115611d1157600080fd5b8260051b8083602087013760009401602001938452509192915050565b818352600060208085019450848460051b86018460005b87811015611daf5783830389528135601e19883603018112611d6657600080fd5b8701803567ffffffffffffffff811115611d7f57600080fd5b803603891315611d8e57600080fd5b611d9b8582898501611c1c565b9a87019a9450505090840190600101611d45565b5090979650505050505050565b60a081526000611dd060a083018a8c611cb1565b8281036020840152611de381898b611cf8565b90508281036040840152611df8818789611d2e565b60608401959095525050608001529695505050505050565b606081526000611e2460608301888a611cb1565b8281036020840152611e37818789611cf8565b90508281036040840152611e4c818587611d2e565b9998505050505050505050565b6020808252602b908201527f496e697469616c697a61626c653a20636f6e7472616374206973206e6f74206960408201526a6e697469616c697a696e6760a81b606082015260800190565b600060208284031215611eb657600080fd5b5051919050565b60008219821115611ed057611ed0611c82565b500190565b6020808252602a908201527f54696d656c6f636b436f6e74726f6c6c65723a206f7065726174696f6e206973604082015269206e6f7420726561647960b01b606082015260800190565b60008251611f318184602087016116f1565b919091019291505056fe360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc416464726573733a206c6f772d6c6576656c2064656c65676174652063616c6c206661696c6564a2646970667358221220b2aac095414e6afa92fb7089fa24a563e372d5e1732262dd2dce99a07ee0324b64736f6c634300080d0033",
+  "devdoc": {
+    "details": "Contract module which acts as a timelocked controller. When set as the executor for the DAO execute action, it enforces a timelock on all DAO executions initiated by the governor contract. This gives time for users of the controlled contract to exit before a potentially dangerous maintenance operation is applied.",
+    "kind": "dev",
+    "methods": {
+      "cancel(bytes32)": {
+        "details": "Cancel an operation. - the caller must be authorized.",
+        "params": {
+          "id": "keccak256 hash of proposal params"
+        }
+      },
+      "executeBatch(address[],uint256[],bytes[],bytes32,bytes32)": {
+        "details": "Execute an (ready) operation containing a batch of transactions. Emits one {CallExecuted} event per transaction in the batch. - the caller must be authorized",
+        "params": {
+          "datas": "Function Sigs w/ Params ",
+          "predecessor": "GovTimelock passes this as 0",
+          "salt": "Description Hash",
+          "targets": "Contract addresses the DAO will call",
+          "values": "Ether values to be sent to the target address"
+        }
+      },
+      "getMinDelay()": {
+        "details": "Returns the minimum delay for an operation to become valid. This value can be changed by executing an operation that calls `updateDelay`."
+      },
+      "getTimestamp(bytes32)": {
+        "details": "Returns the timestamp at with an operation becomes ready (0 for unset operations, 1 for done operations).",
+        "params": {
+          "id": "keccak256 hash of proposal params"
+        }
+      },
+      "hashOperationBatch(address[],uint256[],bytes[],bytes32,bytes32)": {
+        "details": "Returns the identifier of an operation containing a batch of transactions.",
+        "params": {
+          "datas": "Function Sigs w/ Params ",
+          "predecessor": "GovTimelock passes this as 0",
+          "salt": "Description Hash",
+          "targets": "Contract addresses the DAO will call",
+          "values": "Ether values to be sent to the target address"
+        }
+      },
+      "initialize(address,address,uint256)": {
+        "params": {
+          "_accessControl": "The address of the access control contract",
+          "_dao": "The address of the dao contract",
+          "_minDelay": "init the contract with a given `minDelay`."
+        }
+      },
+      "isOperation(bytes32)": {
+        "details": "Returns whether an id correspond to a registered operation. This includes both Pending, Ready and Done operations.",
+        "params": {
+          "id": "keccak256 hash of proposal params"
+        }
+      },
+      "isOperationDone(bytes32)": {
+        "details": "Returns whether an operation is done or not.",
+        "params": {
+          "id": "keccak256 hash of proposal params"
+        }
+      },
+      "isOperationPending(bytes32)": {
+        "details": "Returns whether an operation is pending or not.",
+        "params": {
+          "id": "keccak256 hash of proposal params"
+        }
+      },
+      "isOperationReady(bytes32)": {
+        "details": "Returns whether an operation is ready or not.",
+        "params": {
+          "id": "keccak256 hash of proposal params"
+        }
+      },
+      "name()": {
+        "returns": {
+          "_0": "The module name"
+        }
+      },
+      "proxiableUUID()": {
+        "details": "Implementation of the ERC1822 {proxiableUUID} function. This returns the storage slot used by the implementation. It is used to validate that the this implementation remains valid after an upgrade. IMPORTANT: A proxy pointing at a proxiable contract should not be considered proxiable itself, because this risks bricking a proxy that upgrades to it, by delegating to itself until out of gas. Thus it is critical that this function revert if invoked through a proxy. This is guaranteed by the `notDelegated` modifier."
+      },
+      "scheduleBatch(address[],uint256[],bytes[],bytes32,bytes32,uint256)": {
+        "details": "Schedule an operation containing a batch of transactions. Emits one {CallScheduled} event per transaction in the batch. - the caller must be authorized.",
+        "params": {
+          "datas": "Function Sigs w/ Params ",
+          "delay": "current delay set in contract",
+          "predecessor": "GovTimelock passes this as 0",
+          "salt": "Description Hash",
+          "targets": "Contract addresses the DAO will call",
+          "values": "Ether values to be sent to the target address"
+        }
+      },
+      "supportsInterface(bytes4)": {
+        "details": "See {IERC165-supportsInterface}."
+      },
+      "updateDelay(uint256)": {
+        "details": "Changes the minimum timelock duration for future operations. Emits a {MinDelayChange} event. Requirements: - the caller must be authorized.",
+        "params": {
+          "newDelay": "Update the delay between queue and execute"
+        }
+      },
+      "upgradeTo(address)": {
+        "details": "Upgrade the implementation of the proxy to `newImplementation`. Calls {_authorizeUpgrade}. Emits an {Upgraded} event."
+      },
+      "upgradeToAndCall(address,bytes)": {
+        "details": "Upgrade the implementation of the proxy to `newImplementation`, and subsequently execute the function call encoded in `data`. Calls {_authorizeUpgrade}. Emits an {Upgraded} event."
+      }
+    },
+    "stateVariables": {
+      "__gap": {
+        "details": "This empty reserved space is put in place to allow future versions to add new variables without shifting down storage in the inheritance chain. See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps"
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "initialize(address,address,uint256)": {
+        "notice": "Function for initializing the contract that can only be called once"
+      },
+      "name()": {
+        "notice": "Returns the module name"
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 4437,
+        "contract": "contracts/Governor/Timelock.sol:Timelock",
+        "label": "_initialized",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_bool"
+      },
+      {
+        "astId": 4440,
+        "contract": "contracts/Governor/Timelock.sol:Timelock",
+        "label": "_initializing",
+        "offset": 1,
+        "slot": "0",
+        "type": "t_bool"
+      },
+      {
+        "astId": 4419,
+        "contract": "contracts/Governor/Timelock.sol:Timelock",
+        "label": "__gap",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_array(t_uint256)50_storage"
+      },
+      {
+        "astId": 4639,
+        "contract": "contracts/Governor/Timelock.sol:Timelock",
+        "label": "__gap",
+        "offset": 0,
+        "slot": "51",
+        "type": "t_array(t_uint256)50_storage"
+      },
+      {
+        "astId": 10016,
+        "contract": "contracts/Governor/Timelock.sol:Timelock",
+        "label": "_supportedInterfaces",
+        "offset": 0,
+        "slot": "101",
+        "type": "t_mapping(t_bytes4,t_bool)"
+      },
+      {
+        "astId": 1445,
+        "contract": "contracts/Governor/Timelock.sol:Timelock",
+        "label": "accessControl",
+        "offset": 0,
+        "slot": "102",
+        "type": "t_contract(IDAOAccessControl)1873"
+      },
+      {
+        "astId": 1447,
+        "contract": "contracts/Governor/Timelock.sol:Timelock",
+        "label": "moduleFactory",
+        "offset": 0,
+        "slot": "103",
+        "type": "t_address"
+      },
+      {
+        "astId": 1449,
+        "contract": "contracts/Governor/Timelock.sol:Timelock",
+        "label": "_name",
+        "offset": 0,
+        "slot": "104",
+        "type": "t_string_storage"
+      },
+      {
+        "astId": 11633,
+        "contract": "contracts/Governor/Timelock.sol:Timelock",
+        "label": "_timestamps",
+        "offset": 0,
+        "slot": "105",
+        "type": "t_mapping(t_bytes32,t_uint256)"
+      },
+      {
+        "astId": 11635,
+        "contract": "contracts/Governor/Timelock.sol:Timelock",
+        "label": "minDelay",
+        "offset": 0,
+        "slot": "106",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 11638,
+        "contract": "contracts/Governor/Timelock.sol:Timelock",
+        "label": "dao",
+        "offset": 0,
+        "slot": "107",
+        "type": "t_contract(IDAO)1647"
+      },
+      {
+        "astId": 12136,
+        "contract": "contracts/Governor/Timelock.sol:Timelock",
+        "label": "__gap",
+        "offset": 0,
+        "slot": "108",
+        "type": "t_array(t_uint256)48_storage"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_uint256)48_storage": {
+        "base": "t_uint256",
+        "encoding": "inplace",
+        "label": "uint256[48]",
+        "numberOfBytes": "1536"
+      },
+      "t_array(t_uint256)50_storage": {
+        "base": "t_uint256",
+        "encoding": "inplace",
+        "label": "uint256[50]",
+        "numberOfBytes": "1600"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_bytes32": {
+        "encoding": "inplace",
+        "label": "bytes32",
+        "numberOfBytes": "32"
+      },
+      "t_bytes4": {
+        "encoding": "inplace",
+        "label": "bytes4",
+        "numberOfBytes": "4"
+      },
+      "t_contract(IDAO)1647": {
+        "encoding": "inplace",
+        "label": "contract IDAO",
+        "numberOfBytes": "20"
+      },
+      "t_contract(IDAOAccessControl)1873": {
+        "encoding": "inplace",
+        "label": "contract IDAOAccessControl",
+        "numberOfBytes": "20"
+      },
+      "t_mapping(t_bytes32,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_bytes32",
+        "label": "mapping(bytes32 => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_mapping(t_bytes4,t_bool)": {
+        "encoding": "mapping",
+        "key": "t_bytes4",
+        "label": "mapping(bytes4 => bool)",
+        "numberOfBytes": "32",
+        "value": "t_bool"
+      },
+      "t_string_storage": {
+        "encoding": "bytes",
+        "label": "string",
+        "numberOfBytes": "32"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
