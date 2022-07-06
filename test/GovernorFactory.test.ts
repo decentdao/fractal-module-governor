@@ -108,8 +108,8 @@ describe("Gov Module Factory", function () {
       ];
 
       [governorModuleAddress, timelockAddress] =
-        await govFactory.callStatic.create(govCalldata);
-      createGovTx = await govFactory.create(govCalldata);
+        await govFactory.callStatic.create(deployer.address, govCalldata);
+      createGovTx = await govFactory.create(deployer.address, govCalldata);
       // eslint-disable-next-line camelcase
       govModule = GovernorModule__factory.connect(
         governorModuleAddress,
@@ -178,8 +178,8 @@ describe("Gov Module Factory", function () {
       ];
 
       [governorModuleAddress, timelockAddress] =
-        await govFactory.callStatic.create(govCalldata);
-      createGovTx = await govFactory.create(govCalldata);
+        await govFactory.callStatic.create(deployer.address, govCalldata);
+      createGovTx = await govFactory.create(deployer.address, govCalldata);
       // eslint-disable-next-line camelcase
       govModule = GovernorModule__factory.connect(
         governorModuleAddress,
@@ -196,8 +196,13 @@ describe("Gov Module Factory", function () {
       const predictedTimelock = ethers.utils.getCreate2Address(
         govFactory.address,
         ethers.utils.solidityKeccak256(
-          ["address", "uint256", "bytes32"],
-          [deployer.address, chainId, ethers.utils.formatBytes32String("hi")]
+          ["address", "address", "uint256", "bytes32"],
+          [
+            deployer.address,
+            deployer.address,
+            chainId,
+            ethers.utils.formatBytes32String("hi"),
+          ]
         ),
         ethers.utils.solidityKeccak256(
           ["bytes", "bytes"],
@@ -211,8 +216,13 @@ describe("Gov Module Factory", function () {
       const predictedGov = ethers.utils.getCreate2Address(
         govFactory.address,
         ethers.utils.solidityKeccak256(
-          ["address", "uint256", "bytes32"],
-          [deployer.address, chainId, ethers.utils.formatBytes32String("hi")]
+          ["address", "address", "uint256", "bytes32"],
+          [
+            deployer.address,
+            deployer.address,
+            chainId,
+            ethers.utils.formatBytes32String("hi"),
+          ]
         ),
         ethers.utils.solidityKeccak256(
           ["bytes", "bytes"],
@@ -303,8 +313,8 @@ describe("Gov Module Factory", function () {
       ];
 
       [governorModuleAddress, timelockAddress] =
-        await govFactory.callStatic.create(govCalldata);
-      createGovTx = await govFactory.create(govCalldata);
+        await govFactory.callStatic.create(deployer.address, govCalldata);
+      createGovTx = await govFactory.create(deployer.address, govCalldata);
       // eslint-disable-next-line camelcase
       govModule = GovernorModule__factory.connect(
         governorModuleAddress,
