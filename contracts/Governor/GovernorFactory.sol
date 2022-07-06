@@ -4,8 +4,8 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
 import "@openzeppelin/contracts/utils/Create2.sol";
 
-import "../interfaces/IGovernorModule.sol";
 import "@fractal-framework/core-contracts/contracts/ModuleFactoryBase.sol";
+import "../interfaces/IGovernorModule.sol";
 import "../interfaces/ITimelock.sol";
 
 /// @dev Governor Factory used to deploy Gov Modules
@@ -18,24 +18,25 @@ contract GovernorFactory is ModuleFactoryBase {
     }
 
     /// @dev Creates a Governor module
+    /// @param creator The address creating the module
     /// @param data The array of bytes used to create the module
     /// @return address[] The array of addresses of the created module
-    function create(bytes[] calldata data)
+    function create(address creator, bytes[] calldata data)
         external
         override
         returns (address[] memory)
     {
         address[] memory createdContracts = new address[](2);
 
-        createdContracts[1] = createTimelock(data);
-        createdContracts[0] = createGovernor(createdContracts[1], data);
+        createdContracts[1] = createTimelock(creator, data);
+        createdContracts[0] = createGovernor(creator, createdContracts[1], data);
 
         emit GovernorCreated(createdContracts[0], createdContracts[1]);
 
         return createdContracts;
     }
 
-    function createTimelock(bytes[] memory data)
+    function createTimelock(address creator, bytes[] memory data)
         private
         returns (address timelock)
     {
@@ -44,7 +45,8 @@ contract GovernorFactory is ModuleFactoryBase {
             0,
             keccak256(
                 abi.encodePacked(
-                    tx.origin,
+                    creator,
+                    msg.sender,
                     block.chainid,
                     abi.decode(data[11], (bytes32))
                 )
@@ -63,7 +65,7 @@ contract GovernorFactory is ModuleFactoryBase {
         );
     }
 
-    function createGovernor(address timelock, bytes[] memory data)
+    function createGovernor(address creator, address timelock, bytes[] memory data)
         private
         returns (address governorModule)
     {
@@ -72,7 +74,8 @@ contract GovernorFactory is ModuleFactoryBase {
             0,
             keccak256(
                 abi.encodePacked(
-                    tx.origin,
+                    creator,
+                    msg.sender,
                     block.chainid,
                     abi.decode(data[11], (bytes32))
                 )
