@@ -44,10 +44,6 @@ contract Timelock is ModuleBase, ITimelock {
     /// - the caller must be authorized.
     /// @param newDelay Update the delay between queue and execute
     function updateDelay(uint256 newDelay) external virtual authorized {
-        require(
-            msg.sender == address(this),
-            "TimelockController: caller must be timelock"
-        );
         emit MinDelayChange(minDelay, newDelay);
         minDelay = newDelay;
     }
