@@ -120,7 +120,7 @@ describe("Gov Module", function () {
         [
           ["EXECUTE_ROLE"],
           ["UPGRADE_ROLE"],
-          ["GOV_ROLE"],
+          ["DAO_ROLE"],
           ["GOV_ROLE"],
           ["GOV_ROLE"],
           ["GOV_ROLE"],
@@ -285,7 +285,7 @@ describe("Gov Module", function () {
         [
           ["EXECUTE_ROLE"],
           ["UPGRADE_ROLE"],
-          ["GOV_ROLE"],
+          ["DAO_ROLE"],
           ["GOV_ROLE"],
           ["GOV_ROLE"],
           ["GOV_ROLE"],
@@ -473,7 +473,7 @@ describe("Gov Module", function () {
         [
           ["EXECUTE_ROLE"],
           ["UPGRADE_ROLE"],
-          ["GOV_ROLE"],
+          ["DAO_ROLE"],
           ["GOV_ROLE"],
           ["GOV_ROLE"],
           ["GOV_ROLE"],
@@ -780,7 +780,7 @@ describe("Gov Module", function () {
         [
           ["EXECUTE_ROLE"],
           ["UPGRADE_ROLE"],
-          ["GOV_ROLE"],
+          ["DAO_ROLE"],
           ["GOV_ROLE"],
           ["GOV_ROLE"],
           ["GOV_ROLE"],
@@ -947,7 +947,7 @@ describe("Gov Module", function () {
         [
           ["EXECUTE_ROLE"],
           ["UPGRADE_ROLE"],
-          ["GOV_ROLE"],
+          ["DAO_ROLE"],
           ["GOV_ROLE"],
           ["GOV_ROLE"],
           ["GOV_ROLE"],
@@ -1099,7 +1099,7 @@ describe("Gov Module", function () {
         [
           ["EXECUTE_ROLE"],
           ["UPGRADE_ROLE"],
-          ["GOV_ROLE"],
+          ["DAO_ROLE"],
           ["GOV_ROLE"],
           ["GOV_ROLE"],
           ["GOV_ROLE"],
@@ -1188,6 +1188,74 @@ describe("Gov Module", function () {
       expect(await governanceToken.balanceOf(dao.address)).to.eq(
         ethers.utils.parseUnits("700.0", 18)
       );
+    });
+
+    it("Can update the Timelock MinDelay with a passing proposal", async () => {
+      const transferCallData = timelock.interface.encodeFunctionData(
+        "updateDelay",
+        [20]
+      );
+
+      expect(await timelock.getMinDelay()).to.eq(0);
+
+      const proposalCreatedEvent = await govModPropose(
+        [timelock.address],
+        [BigNumber.from("0")],
+        govModule,
+        voterA,
+        [transferCallData],
+        "Proposal: Update timelock min delay to 20"
+      );
+
+      await network.provider.send("evm_mine");
+
+      // Voters A, B, C votes "For"
+      await govModule
+        .connect(voterA)
+        .castVote(proposalCreatedEvent.proposalId, VoteType.For);
+      await govModule
+        .connect(voterB)
+        .castVote(proposalCreatedEvent.proposalId, VoteType.For);
+      await govModule
+        .connect(voterC)
+        .castVote(proposalCreatedEvent.proposalId, VoteType.For);
+
+      await network.provider.send("evm_mine");
+      await network.provider.send("evm_mine");
+
+      await govModule
+        .connect(voterA)
+        .queue(
+          proposalCreatedEvent.targets,
+          proposalCreatedEvent._values,
+          proposalCreatedEvent.calldatas,
+          ethers.utils.id(proposalCreatedEvent.description)
+        );
+
+      await govModule
+        .connect(voterA)
+        .execute(
+          proposalCreatedEvent.targets,
+          proposalCreatedEvent._values,
+          proposalCreatedEvent.calldatas,
+          ethers.utils.id(proposalCreatedEvent.description)
+        );
+
+      expect(await timelock.getMinDelay()).to.eq(20);
+    });
+
+    it("Reverts if address other than DAO attempts to change timelock min delay", async () => {
+      await expect(
+        timelock.connect(deployer).updateDelay(5)
+      ).to.be.revertedWith("NotAuthorized()");
+
+      await expect(timelock.connect(voterA).updateDelay(5)).to.be.revertedWith(
+        "NotAuthorized()"
+      );
+
+      await expect(
+        timelock.connect(executor1).updateDelay(5)
+      ).to.be.revertedWith("NotAuthorized()");
     });
 
     it("Revert if execution is too early", async () => {
